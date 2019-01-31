@@ -1,0 +1,14 @@
+Steamed Dumplings
+5 8.0
+Papa John's Pizza
+3 7.6
+Celery
+0 1.5
+Mango
+23 9.7
+Wegmans pizza
+2 6.5
+Pocky
+12 7.6
+Seaweed
+2 6.5

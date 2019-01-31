@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string_name">text_string</string>
+    <string name="title">Ticket to Ride</string>
+    <string title="start">Start</string>
+    <string title="p1">Player Number 1</string>
+    <string name="???">***</string>
+</resources>
