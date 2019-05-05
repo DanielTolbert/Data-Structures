@@ -13,6 +13,7 @@ public class Grapher extends PApplet {
     PImage dotImage;
     boolean madeLocations = false;
     boolean notWhite = false;
+    boolean allPossibleEdges = false;
     ArrayList<Dot> dots = new ArrayList<>(  );
 
     public void settings() {
@@ -31,9 +32,9 @@ public class Grapher extends PApplet {
     }
 
     public void keyTyped() {
-        String locations = JOptionPane.showInputDialog( "How many locations?" );
         int dotsWanted = 0;
         if ( key == 'q') {
+            String locations = JOptionPane.showInputDialog( "How many locations?" );
             try {
                 dotsWanted = Integer.parseInt( locations );
             } catch (Exception e) {
@@ -44,14 +45,18 @@ public class Grapher extends PApplet {
 
         }
 
+        if ( key == 'a' ) {
+            allPossibleEdges = true;
+        }
+
     }
 
     public void draw() {
         image(image, 0, 0);//, width, height);
         for ( Dot d : dots ) {
             image(d.getImage(), d.getX(), d.getY());
-//            System.out.println(d.getX());
         }
+        allPossibleEdges( allPossibleEdges );
     }
 
     public void createDots(int dotsWanted) {
@@ -69,6 +74,17 @@ public class Grapher extends PApplet {
             dots.add( new Dot( dotImage, x, y ) );
             System.out.println("============" +  ( image.get( x, y ) ) );
 //            System.out.println(image.get( x, y ) >> 1 );
+        }
+    }
+
+    private void allPossibleEdges(boolean active) {
+        if ( active ) {
+            for ( Dot a : dots ) {
+                for ( Dot b : dots) {
+                    stroke( 100 );
+                    line( a.getX(), a.getY(), b.getX(), b.getY() );
+                }
+            }
         }
     }
 
