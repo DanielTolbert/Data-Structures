@@ -11,9 +11,12 @@ public class Grapher extends PApplet {
     int screenHeight = 610;
     PImage image;
     PImage dotImage;
+    int randomNumber = 0;
     boolean madeLocations = false;
     boolean notWhite = false;
     boolean allPossibleEdges = false;
+    boolean randomActive = false;
+
     ArrayList<Dot> dots = new ArrayList<>(  );
 
     public void settings() {
@@ -49,6 +52,12 @@ public class Grapher extends PApplet {
             allPossibleEdges = true;
         }
 
+        if ( key == 'r' ) {
+            randomActive = true;
+            String num = JOptionPane.showInputDialog( "How many random connections?" );
+            randomNumber = Integer.parseInt( num );
+        }
+
     }
 
     public void draw() {
@@ -57,6 +66,7 @@ public class Grapher extends PApplet {
             image(d.getImage(), d.getX(), d.getY());
         }
         allPossibleEdges( allPossibleEdges );
+        randomEdges( randomActive );
     }
 
     public void createDots(int dotsWanted) {
@@ -74,6 +84,16 @@ public class Grapher extends PApplet {
             dots.add( new Dot( dotImage, x, y ) );
             System.out.println("============" +  ( image.get( x, y ) ) );
 //            System.out.println(image.get( x, y ) >> 1 );
+        }
+    }
+
+    private void randomEdges(boolean active) {
+        stroke( 102 );
+        if ( active ) {
+            for ( int i = 0; i < randomNumber; i++ ) {
+                line(dots.get( i ).getX(), dots.get( i ).getY(), dots.get( (dots.size() - 1)/ (i + 1) ).getX(), dots.get( (dots.size() - 1) / (i + 1) ).getY());
+                System.out.println("I AM HERE");
+            }
         }
     }
 
