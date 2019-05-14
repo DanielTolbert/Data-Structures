@@ -18,6 +18,7 @@ public class Grapher extends PApplet {
     boolean randomActive = false;
 
     ArrayList<Dot> dots = new ArrayList<>(  );
+    ArrayList<Edge> edges = new ArrayList<>(  );
 
     public void settings() {
         size( screenWidth, screenHeight);
@@ -65,6 +66,13 @@ public class Grapher extends PApplet {
         for ( Dot d : dots ) {
             image(d.getImage(), d.getX(), d.getY());
         }
+
+        for ( Edge e : edges ) {
+            stroke(102);
+            line( e.getConnectingDotA().getX(), e.getConnectingDotA().getY(), e.getConnectingDotB().getX(), e.getConnectingDotB().getY() );
+        }
+
+
         allPossibleEdges( allPossibleEdges );
         randomEdges( randomActive );
     }
@@ -91,7 +99,10 @@ public class Grapher extends PApplet {
         stroke( 102 );
         if ( active ) {
             for ( int i = 0; i < randomNumber; i++ ) {
-                line(dots.get( i ).getX(), dots.get( i ).getY(), dots.get( (dots.size() - 1)/ (i + 1) ).getX(), dots.get( (dots.size() - 1) / (i + 1) ).getY());
+                Edge e = new Edge((dots.get( i )), dots.get( (dots.size() - 1)/ (i + 1) ));
+                if ( !edges.contains( e ) ) {
+                    edges.add( e );
+                }
             }
         }
     }
@@ -100,8 +111,12 @@ public class Grapher extends PApplet {
         if ( active ) {
             for ( Dot a : dots ) {
                 for ( Dot b : dots) {
-                    stroke( 100 );
-                    line( a.getX(), a.getY(), b.getX(), b.getY() );
+//                    stroke( 100 );
+//                    line( a.getX(), a.getY(), b.getX(), b.getY() );
+                    Edge e = new Edge( a, b );
+                    if ( !edges.contains( e ) ) {
+                        edges.add( e );
+                    }
                 }
             }
         }
