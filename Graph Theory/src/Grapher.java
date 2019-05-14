@@ -92,7 +92,6 @@ public class Grapher extends PApplet {
         if ( active ) {
             for ( int i = 0; i < randomNumber; i++ ) {
                 line(dots.get( i ).getX(), dots.get( i ).getY(), dots.get( (dots.size() - 1)/ (i + 1) ).getX(), dots.get( (dots.size() - 1) / (i + 1) ).getY());
-                System.out.println("I AM HERE");
             }
         }
     }
