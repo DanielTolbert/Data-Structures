@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Processinglib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/processing-3.5.3/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/processing-3.5.3/lib" />
+    </NATIVE>
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/processing-3.5.3/lib" recursive="false" />
+  </library>
+</component>
