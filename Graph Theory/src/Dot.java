@@ -1,5 +1,6 @@
 import processing.core.PImage;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Dot {
@@ -29,6 +30,10 @@ public class Dot {
 
     public ArrayList<Edge> getConnected() {
         return connectedEdges;
+    }
+
+    public void setImage( PImage image) {
+        this.image = image;
     }
 
     public void addConnected(Edge edge) {

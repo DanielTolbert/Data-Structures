@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PImage;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ public class Grapher extends PApplet {
     int screenHeight = 610;
     PImage image;
     PImage dotImage;
+    PImage visitedDotImage;
     int randomNumber = 0;
     boolean madeLocations = false;
     boolean notWhite = false;
@@ -31,6 +33,7 @@ public class Grapher extends PApplet {
         surface.setResizable( true );
         image = loadImage( "WorldMap.png" );
         dotImage = loadImage("Dot.png");
+        visitedDotImage = loadImage("Dotvisited.png");
 
         background( 255 );
         noStroke();
@@ -69,7 +72,7 @@ public class Grapher extends PApplet {
 
 //        if ( key == 'f' ) {
 //            Edge e = new Edge( dots.get( 0 ), dots.get( 2 ) );
-//            e.setFill( 50 );
+//            e.setStroke( 50 );
 //            edges.add( e );
 //
 //            System.out.println("OVERALL EDGES: " + edges.size());
@@ -86,6 +89,10 @@ public class Grapher extends PApplet {
             wipeEdges();
         }
 
+        if ( key == 'p' ) {
+            prims( dots );
+        }
+
     }
 
     public void draw() {
@@ -95,8 +102,10 @@ public class Grapher extends PApplet {
         }
 
         for ( Edge e : edges ) {
-            stroke( e.getFill() );
-            line( e.getConnectingDotA().getX(), e.getConnectingDotA().getY(), e.getConnectingDotB().getX(), e.getConnectingDotB().getY() );
+
+             stroke( e.getRed(), e.getGreen(), e.getBlue() );
+             line( e.getConnectingDotA().getX(), e.getConnectingDotA().getY(), e.getConnectingDotB().getX(), e.getConnectingDotB().getY() );
+//             clear();
         }
 
 
@@ -228,6 +237,7 @@ public class Grapher extends PApplet {
         randomActive = false;
     }
 
+
     private boolean isUniqueDot(ArrayList<Dot> dots, Dot dot) {
         for ( Dot a : dots ) {
             if ( a.equals( dot ) ) {
@@ -262,6 +272,60 @@ public class Grapher extends PApplet {
             }
         }
         return true;
+    }
+
+    public void prims(ArrayList<Dot> dots) {
+        ArrayList<Edge> visitedEdges = new ArrayList<>(  );
+        ArrayList<Dot> visited = new ArrayList<>(  );
+        visited.add( dots.get( 0 ) );
+        while(dots.size() != visited.size()) {
+            ArrayList<String> availableConnections = new ArrayList<>(  );
+            TreeMap<Edge, Integer> availableEdgeConnections = new TreeMap<>(  );
+            for ( Dot a : visited ) {
+                for ( Edge e : a.getConnected() ) {
+                    if ( (!availableConnections.contains( e.getName() ) ) && !(visited.contains( e.getConnectingDotA() ) && visited.contains( e.getConnectingDotB() ) ) ) {
+                        availableConnections.add( e.getName() );
+                        availableEdgeConnections.put( e, e.getLength() );
+                    }
+                }
+            }
+
+            System.out.println("Dots: " + dots.size() + "\nVisited: " + visited.size() + "\nAvailable Connections: " + availableConnections.size());
+            ArrayList<Integer> sortedVals = new ArrayList<>(  );
+            sortedVals.addAll( availableEdgeConnections.values() );
+            Collections.sort( sortedVals );
+            int smallestNum = sortedVals.get( 0 );
+            Edge smallestEdge = null;
+
+            for ( Edge e : availableEdgeConnections.keySet() ) {
+                if ( (e.getLength() == smallestNum) && !(visited.contains(e.getConnectingDotA()) && visited.contains( e.getConnectingDotB() ) ) ) {
+                    smallestEdge = e;
+                    e.setColor( 255, 0, 0 );
+                    visitedEdges.add( e );
+//                    (visited.contains( e.getConnectingDotA() ) ? e.getConnectingDotB() : e.getConnectingDotA()).setImage( visitedDotImage );
+                    visited.add( (visited.contains( e.getConnectingDotA() ) ? e.getConnectingDotB() : e.getConnectingDotA()) );
+                }
+            }
+
+            if ( smallestEdge == null ) {
+                System.out.println("Done or didn't work???????????????????");
+            }
+
+//            for( Edge e : availableEdgeConnections.keySet() ) {
+//                if( (availableEdgeConnections.values().stream().min( Integer::compareTo )).equals( Integer.valueOf( e.getLength() ) ) ) {
+//                    smallestEdge = e;
+//                }
+//            }
+
+
+
+        }
+//         edges.stream().filter( e -> visitedEdges.contains( e ) );
+        for ( int i = edges.size() - 1; i >= 0; i -- ) {
+            if ( !visitedEdges.contains( edges.get( i ) ) ) {
+                edges.remove( i );
+            }
+        }
     }
 
     public static void main(String[] args) {
