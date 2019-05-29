@@ -1,9 +1,12 @@
+import com.sun.source.tree.Tree;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Grapher extends PApplet {
 
@@ -18,11 +21,13 @@ public class Grapher extends PApplet {
     boolean notWhite = false;
     boolean allPossibleEdges = false;
     boolean randomActive = false;
+    boolean cont = false;
 
     ArrayList<Dot> dots = new ArrayList<>(  );
     ArrayList<Edge> edges = new ArrayList<>(  );
     HashSet<String> cycledEdges = new HashSet<>(  );
     HashSet<Edge> cycledDots = new HashSet<>(  );
+    Scanner scanner = new Scanner( System.in );
 
     public void settings() {
         size( screenWidth, screenHeight);
@@ -61,6 +66,10 @@ public class Grapher extends PApplet {
         if ( key == 'a' ) {
 //            allPossibleEdges = true;
             allPossibleEdges( true );
+        }
+
+        if ( key == 'k' ) {
+//            System.out.println( edges.get(0).getConnectingDotA() == edges.get( 1 ).getConnectingDotB() || edges.get(0).getConnectingDotB() == edges.get( 1 ).getConnectingDotA() );
         }
 
         if ( key == 'r' ) {
@@ -121,7 +130,7 @@ public class Grapher extends PApplet {
             while(!notWhite) {
                 x = (int)(Math.random() * width);
                 y = (int)(Math.random() * height);
-                notWhite = ( image.get( x, y ) >> 1 ) != -1;
+                notWhite = ( image.get( x, y ) >> 1 ) != -1 && ( image.get( x, y ) >> 1 ) != 0;
 //                notWhite = false;
             }
 //            image( dotImage, x, y );
@@ -275,58 +284,61 @@ public class Grapher extends PApplet {
     }
 
     public void prims(ArrayList<Dot> dots) {
-        ArrayList<Edge> visitedEdges = new ArrayList<>(  );
-        ArrayList<Dot> visited = new ArrayList<>(  );
-        visited.add( dots.get( 0 ) );
-        while(dots.size() != visited.size()) {
-            ArrayList<String> availableConnections = new ArrayList<>(  );
-            TreeMap<Edge, Integer> availableEdgeConnections = new TreeMap<>(  );
-            for ( Dot a : visited ) {
-                for ( Edge e : a.getConnected() ) {
-                    if ( (!availableConnections.contains( e.getName() ) ) && !(visited.contains( e.getConnectingDotA() ) && visited.contains( e.getConnectingDotB() ) ) ) {
-                        availableConnections.add( e.getName() );
-                        availableEdgeConnections.put( e, e.getLength() );
-                    }
-                }
+        ArrayList<Dot> visitedNodes = new ArrayList<>(  );
+        edges.clear();
+        visitedNodes.add( dots.get( 0 ) );
+        while(visitedNodes.size() < dots.size()) {
+            List<Edge> availableConnections = findAvailable( visitedNodes );
+
+            Edge smallest = findNthSmallestEdge( availableConnections, 1 );
+            if ( availableConnections.size() == 0 ) {
+                smallest = dots.stream().filter( c -> !visitedNodes.contains( c ) ).collect( Collectors.toList() ).get( 0 ).getConnected().get( 0 );
             }
 
-            System.out.println("Dots: " + dots.size() + "\nVisited: " + visited.size() + "\nAvailable Connections: " + availableConnections.size());
-            ArrayList<Integer> sortedVals = new ArrayList<>(  );
-            sortedVals.addAll( availableEdgeConnections.values() );
-            Collections.sort( sortedVals );
-            int smallestNum = sortedVals.get( 0 );
-            Edge smallestEdge = null;
 
-            for ( Edge e : availableEdgeConnections.keySet() ) {
-                if ( (e.getLength() == smallestNum) && !(visited.contains(e.getConnectingDotA()) && visited.contains( e.getConnectingDotB() ) ) ) {
-                    smallestEdge = e;
-                    e.setColor( 255, 0, 0 );
-                    visitedEdges.add( e );
-//                    (visited.contains( e.getConnectingDotA() ) ? e.getConnectingDotB() : e.getConnectingDotA()).setImage( visitedDotImage );
-                    visited.add( (visited.contains( e.getConnectingDotA() ) ? e.getConnectingDotB() : e.getConnectingDotA()) );
-                }
-            }
+                smallest.setColor( 0, 255, 255 );
+                edges.add( smallest );
+                addIfNotDuplicate( visitedNodes, smallest.getConnectingDotB() );
+                addIfNotDuplicate( visitedNodes, smallest.getConnectingDotA() );
 
-            if ( smallestEdge == null ) {
-                System.out.println("Done or didn't work???????????????????");
-            }
-
-//            for( Edge e : availableEdgeConnections.keySet() ) {
-//                if( (availableEdgeConnections.values().stream().min( Integer::compareTo )).equals( Integer.valueOf( e.getLength() ) ) ) {
-//                    smallestEdge = e;
-//                }
-//            }
-
+                availableConnections.forEach( x -> System.out.print( x.toString() + ", " ) );
+                System.out.println( "\nSmallest Edge: " + smallest.getLength() );
+                System.out.printf( "Dots: %s, Visited: %s, Available Connections: %s\n", dots.size(), visitedNodes.size(), availableConnections.size() );
 
 
         }
-//         edges.stream().filter( e -> visitedEdges.contains( e ) );
-        for ( int i = edges.size() - 1; i >= 0; i -- ) {
-            if ( !visitedEdges.contains( edges.get( i ) ) ) {
-                edges.remove( i );
+
+
+    }
+
+    private Edge findNthSmallestEdge(List<Edge> edgeCollection, int n) {
+        Collections.sort( edgeCollection );
+        Object[] edgecol = (edgeCollection.stream().filter( c -> c.getLength() != 0 )).toArray();
+        return (Edge)edgecol[n - 1];
+    }
+
+    private List<Edge> findAvailable(ArrayList<Dot> visited) {
+        ArrayList<Edge> available = new ArrayList<>(  );
+        for ( Dot a : visited ) {
+            for ( Edge e : a.getConnected() ) {
+                if ( containsUnvisited( e, visited ) && e.getLength() != 0 ) {
+                    available.add( e );
+                }
             }
+        }
+        return available;
+    }
+
+    private boolean containsUnvisited(Edge e, ArrayList<Dot> visited) {
+        return (!visited.contains( e.getConnectingDotA() )) || (!visited.contains( e.getConnectingDotB() ));
+    }
+
+    private void addIfNotDuplicate( ArrayList<Dot> list, Dot o ) {
+        if ( !list.contains( o ) ) {
+            list.add( o );
         }
     }
+
 
     public static void main(String[] args) {
         PApplet.main( "Grapher" );

@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Dot {
+public class Dot implements Comparable{
 
     private PImage image;
     private int x;
@@ -42,5 +42,15 @@ public class Dot {
 
     public PImage getImage() {
         return image;
+    }
+
+    @Override
+    public int compareTo( Object o ) {
+        if ( getConnected().size() > ((Dot)o).getConnected().size()) {
+            return 1;
+        } else if ( getConnected().size() < ((Dot)o).getConnected().size()) {
+            return -1;
+        }
+        return 0;
     }
 }

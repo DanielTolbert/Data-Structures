@@ -52,7 +52,7 @@ public class Edge implements Comparable{
     }
 
     public int getLength() {
-        return (int)Math.sqrt( (b.getX() - a.getX())^2 + (b.getY() - a.getY())^2 );
+        return (int)Math.sqrt( Math.pow((b.getX() - a.getX()), 2) + Math.pow((b.getY() - a.getY()), 2) );
     }
 
     public String getName() {
@@ -74,5 +74,14 @@ public class Edge implements Comparable{
             return 1;
         }
         return 0;
+    }
+
+    public static int compare(Edge x, Edge y) {
+        return (x.getLength() < y.getLength()) ? -1 : ((x.getLength() == y.getLength()) ? 0 : 1);
+    }
+
+    @Override
+    public String toString() {
+        return getLength() + "";
     }
 }
