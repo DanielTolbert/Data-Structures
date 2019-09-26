@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Typing Application</string>
+    <string name="type_here">Type Here!</string>
+    <string name="todo1">TODO</string>
+    <string name="todo2">TODO</string>
+    <string name="todo3">TODO</string>
+</resources>
