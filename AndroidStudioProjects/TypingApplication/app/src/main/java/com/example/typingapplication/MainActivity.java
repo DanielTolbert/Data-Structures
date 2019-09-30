@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }, millis);
         showAll(morningStarLogo);
-
     }
 
 }
