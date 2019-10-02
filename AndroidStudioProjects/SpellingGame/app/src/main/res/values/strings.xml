@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Spelling Game</string>
+    <string name="textviewTimeLeft">TextView</string>
+    <string name="RadioButtonCorrect">Correct</string>
+    <string name="RadioButtonInorrect">Incorrect</string>
+    <string name="RadioButtonSkip">Skip</string>
+    <string name="TextViewGameOver">Game Over</string>
+    <string name="ButtonStartGame">Start!</string>
+    <string name="SwitchConfirm"><Confirm></Confirm></string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Billing Application</string>
+    <string name="amount_due">Amount Due</string>
+    <string name="calculate_tip">Calculate!</string>
+</resources>
