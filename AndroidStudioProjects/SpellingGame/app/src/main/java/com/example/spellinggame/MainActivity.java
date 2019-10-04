@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView gameOver;
     ImageView logo;
     ImageView background;
+    ImageView llama;
     Switch switchConfirm;
     Handler timerHandler = new Handler();
     Random random = new Random();
@@ -58,13 +59,18 @@ public class MainActivity extends AppCompatActivity {
             makeTextViewGameOver();
             makeStartButton();
             makeTextViewScore();
+            makeLlamaImage();
             hideAll(wordPrompt, switchConfirm, radioGroup, radioButtonIncorrect, radioButtonCorrect, radioButtonSkip, gameOver, scoreOfTwenty);
-            showAll(startButton);
+            showAll(startButton, llama);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 
 
+    }
+
+    private void makeLlamaImage() {
+        llama = findViewById(R.id.imageViewLlama);
     }
 
     private void makeRadioGroup() {
@@ -89,10 +95,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void startGame() {
         stopped = false;
+        score = 0;
+        scoreOfTwenty.setText("0/20\n%0");
         milisecondsLeft = SET_TIME;
-        hideAll(startButton, gameOver);
+        hideAll(startButton, gameOver, llama);
         showAll(wordPrompt, switchConfirm, radioButtonSkip, radioButtonCorrect, radioButtonIncorrect, radioGroup, scoreOfTwenty);
         runTimer(SET_TIME);
+        words.clear();
+        words.addAll(Arrays.asList(Word.values()));
         advanceQuestion();
     }
 
@@ -187,6 +197,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void endGame() {
         stopped = true;
+        if (score >= 19) {
+            gameOver.setText("You Won!");
+        } else {
+            gameOver.setText("Game Over\nWord you misspelled: " + prompted);
+        }
         hideAll(radioButtonCorrect, radioButtonIncorrect, radioButtonSkip, radioGroup, wordPrompt, switchConfirm);
         showAll(gameOver, startButton, scoreOfTwenty);
     }
@@ -235,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void advanceQuestion() {
         words.remove(prompted);
-        prompted = words.get(random.nextInt(Word.values().length));
+        prompted = words.get(random.nextInt(words.size() - 1));
         wordPrompt.setText(prompted.getWord());
         switchConfirm.setChecked(false);
         radioGroup.clearCheck();
@@ -244,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
     enum Word {
 
 
-        Vaccuum("Vaccuum", true),
+        Vaccuum("Vaccuum", false),
         Congradulate("Congradulate", false),
         Cemetery("Cemetery", true ),
         Prejudice("Prejudice", true),
@@ -266,15 +281,15 @@ public class MainActivity extends AppCompatActivity {
         Irrelevant("Irrelevant", true),
         Innoculate("Innoculate", false),
         Camoflage("Camoflage", false),
-        Allege("Allege", false),
-        Dumbbell("Dumbbell", false),
+        Allege("Allege", true),
+        Dumbbell("Dumbbell", true),
         Tomorow("Tomorow", false),
         Priviledge("Priviledge", false),
         Definately("Definately", false),
         Camaraderie("Camaraderie", true),
-        Whether("Whether", false),
+        Whether("Whether", true),
         Quarentine("Quarentine", false),
-        Questionnaire("Questionnaire", false),
+        Questionnaire("Questionnaire", true),
         Underrate("Underrate", true),
         Embarrass("Embarrass", true),
         Fascinating("Fascinating", true),

@@ -16,6 +16,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="@string/textviewTimeLeft"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,40 +26,45 @@
         android:id="@+id/textViewWordDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="150dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/textViewTimeLeft"
-        app:layout_constraintHorizontal_bias="0.671"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/RadioGroupButtons"
         android:layout_width="189dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="312dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWordDisplay">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/radioButtonCorrect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Correct" />
+            android:text="Correct"
+            android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/radioButtonIncorrect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/RadioButtonInorrect" />
+            android:text="@string/RadioButtonInorrect"
+            android:textSize="24sp" />
 
         <RadioButton
             android:id="@+id/radioButtonSkip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/RadioButtonSkip" />
+            android:text="@string/RadioButtonSkip"
+            android:textSize="24sp" />
+
     </RadioGroup>
 
     <Switch
@@ -69,7 +75,7 @@
         android:layout_marginLeft="294dp"
         android:layout_marginEnd="36dp"
         android:layout_marginRight="36dp"
-        android:layout_marginBottom="271dp"
+        android:layout_marginBottom="150dp"
         android:text="@string/SwitchConfirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,12 +85,13 @@
         android:id="@+id/textViewGameOver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TextViewGameOver"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/TextViewGameOver" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonStart"
@@ -94,7 +101,7 @@
         android:text="@string/ButtonStartGame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/ButtonStartGame" />
 
@@ -102,14 +109,26 @@
         android:id="@+id/textViewScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="234dp"
-        android:layout_marginRight="234dp"
+        android:layout_marginEnd="200dp"
+        android:layout_marginRight="200dp"
         android:text="TextView"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textViewTimeLeft"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewLlama"
+        android:layout_width="299dp"
+        android:layout_height="379dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWordDisplay"
+        app:srcCompat="@mipmap/llama" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
