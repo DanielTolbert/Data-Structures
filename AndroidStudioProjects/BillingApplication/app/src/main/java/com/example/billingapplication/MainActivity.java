@@ -2,9 +2,12 @@ package com.example.billingapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +21,8 @@ import java.util.stream.Collectors;
 public class MainActivity extends AppCompatActivity {
 
     private Spinner tipAmountSpin;
-    private TextView amountDueText;
+    private EditText amountDueText;
+    private TextView textViewTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         createSpinner();
         createTextView();
-
+        createTextViewTotal();
     }
 
     private void createSpinner() {
@@ -62,21 +66,54 @@ public class MainActivity extends AppCompatActivity {
 
     private void createTextView() {
         amountDueText = findViewById(R.id.textViewAmountDue);
-//        amountDueText.setOnEditorActionListener( (e, f, g)  -> calculateTotal());
+        amountDueText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (amountDueText.getText().toString().contains(".")) {
+                    if (amountDueText.getText().toString().substring(amountDueText.getText().toString().indexOf(".")).length() > 3) {
+                        String toRemove = amountDueText.getText().toString().substring(0, amountDueText.getText().toString().indexOf(".") + 3);
+                        amountDueText.setText(toRemove);
+                        amountDueText.setSelection(start);
+                    }
+                }
+
+                try {
+                    calculateTotal();
+                } catch (Exception e) {
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void createTextViewTotal() {
+        textViewTotal = findViewById(R.id.textViewTotal);
     }
 
     private boolean calculateTotal() {
+        DecimalFormat df = new DecimalFormat("0.00");
+
         double due = amountDueText.getText().length() > 0 ? Double.parseDouble(amountDueText.getText().toString()) : 0.0;
         double tip = Double.parseDouble(tipAmountSpin.getSelectedItem().toString());
 
         double total = (due * (tip * 0.01) + due );
 
-        int dollars = (int)total;
-        int cents = (int)total % 100;
 
-        String stringTotal = String.format("%02d.%02d", dollars, cents);
+        String stringTotal = df.format(total);
 
-        Toast.makeText(this, stringTotal, Toast.LENGTH_SHORT).show();
+        textViewTotal.setText(stringTotal);
         return true;
     }
 
