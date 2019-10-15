@@ -114,7 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDisplayedWord(String pWord) {
         displayedWord = pWord;
-        displayed.setText("Word " + ( seekBar.getProgress() + 1 ) + ": " + displayedWord);
+        if (plainText.getText().toString().isEmpty()) {
+            displayed.setText("");
+        } else {
+            displayed.setText("Word " + ( seekBar.getProgress() + 1 ) + ": " + displayedWord);
+        }
     }
 
     private String getDisplayedWord() {

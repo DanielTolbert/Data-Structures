@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Handler timerHandler = new Handler();
     Random random = new Random();
     Button startButton;
+    DecimalFormat df = new DecimalFormat("0.00");
     Runnable timerInvert;
     private long miliseconds;
     private int percentCorrect;
@@ -59,9 +61,11 @@ public class MainActivity extends AppCompatActivity {
             makeTextViewGameOver();
             makeStartButton();
             makeTextViewScore();
+            makeImageViewLogo();
             makeLlamaImage();
+            splashScreen();
             hideAll(wordPrompt, switchConfirm, radioGroup, radioButtonIncorrect, radioButtonCorrect, radioButtonSkip, gameOver, scoreOfTwenty);
-            showAll(startButton, llama);
+//            showAll(startButton, llama);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void makeImageViewLogo() {
-
+        logo = findViewById(R.id.imageViewLogo);
     }
 
     private void makeTextViewTimeLeft() {
@@ -164,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         radioButtonIncorrect = findViewById(R.id.radioButtonIncorrect);
     }
 
-    private void updateTimer() {
+    private void updateTimer(long milisecondsLeft) {
         milisecondsLeft -= 1000;
         miliseconds = SET_TIME - milisecondsLeft;
 
@@ -176,23 +180,34 @@ public class MainActivity extends AppCompatActivity {
         runTimer(milisecondsLeft);
     }
 
-    private void runTimer(long millis) {
+    private boolean runTimer(final long millis) {
 
 
         if (millis > 0 && !stopped) {
             timerHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    updateTimer();
+                    updateTimer(millis);
                 }
             }, 1000);
         }
+
+        return true;
 
 
     }
 
     private void splashScreen() {
-
+        hideAll(startButton, timeLeft, llama, radioGroup, radioButtonIncorrect, radioButtonCorrect, radioButtonSkip, switchConfirm);
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showAll(startButton, timeLeft, llama);
+                hideAll(logo);
+            }
+        }, 3000);
+        showAll(logo);
     }
 
     private void endGame() {
@@ -244,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         if (score == 0) {
             scoreOfTwenty.setText("0/20\n%0");
         } else {
-            scoreOfTwenty.setText(score + "/20\n%" + (((double) score/20)) * 100);
+            scoreOfTwenty.setText(score + "/20\n%" + df.format(((((double) score/20)) * 100)));
         }
     }
 

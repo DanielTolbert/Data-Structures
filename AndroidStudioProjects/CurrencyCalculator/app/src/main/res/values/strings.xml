@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Currency Calculator</string>
+    <string name="enter_amnt">Enter Amount</string>
+    <string name="convert_button">Convert!</string>
+</resources>
