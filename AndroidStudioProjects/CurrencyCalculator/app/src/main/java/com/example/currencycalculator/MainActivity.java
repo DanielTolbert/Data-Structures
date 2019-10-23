@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextDollar;
     TextView textViewYen;
 
-    private final double DOLLAR_TO_YEN_RATE = 107.25;
+    private final double DOLLAR_TO_YEN_RATE = 100.00;
     private DecimalFormat FORMAT = new DecimalFormat("0.00");
 
 
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (editTextDollar.getText().toString().contains(".")) {
+
                     if (editTextDollar.getText().toString().substring(editTextDollar.getText().toString().indexOf(".")).length() > 3) {
                         String toRemove = editTextDollar.getText().toString().substring(0, editTextDollar.getText().toString().indexOf(".") + 3);
                         editTextDollar.setText(toRemove);
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void convert() {
-        double dollar = Double.parseDouble(editTextDollar.getText().toString());
+
+        double dollar = ((editTextDollar.getText().toString().contains(".") && editTextDollar.getText().toString().length() == 1) || editTextDollar.getText().toString().equals("")) ? 0.00 : Double.parseDouble(editTextDollar.getText().toString());
         String yen = ("" + FORMAT.format(dollar * DOLLAR_TO_YEN_RATE));
         textViewYen.setText(yen);
     }

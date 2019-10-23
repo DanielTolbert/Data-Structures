@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean calculateTotal() {
         DecimalFormat df = new DecimalFormat("0.00");
 
-        double due = amountDueText.getText().length() > 0 ? Double.parseDouble(amountDueText.getText().toString()) : 0.0;
+        double due = amountDueText.getText().length() > 0 ? Double.parseDouble(amountDueText.getText().toString().replace(",", "")) : 0.0;
         double tip = Double.parseDouble(tipAmountSpin.getSelectedItem().toString());
 
         double total = (due * (tip * 0.01) + due );

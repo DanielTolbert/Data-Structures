@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -124,9 +127,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void makeImageViewBackground() {
-
-    }
 
     private void makeImageViewLogo() {
         logo = findViewById(R.id.imageViewLogo);
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void makeTextViewTimeLeft() {
         timeLeft = findViewById(R.id.textViewTimeLeft);
-        timeLeft.setText("00:00");
+        timeLeft.setText("5:00");
     }
 
     private void makeSwitchConfirm() {
@@ -148,11 +148,47 @@ public class MainActivity extends AppCompatActivity {
                         advanceQuestion();
                     } else if (skipped()){
                         advanceQuestion();
+                    } else if (nothingSelected()) {
+                        switchConfirm.setChecked(false);
                     } else {
-                        endGame();
+                        endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
                     }
                 }
             });
+
+            switchConfirm.setOnDragListener(new View.OnDragListener() {
+                @Override
+                public boolean onDrag(View v, DragEvent event) {
+                    if (checkCorrect()) {
+                        awardPoints();
+                        advanceQuestion();
+                    } else if (skipped()){
+                        advanceQuestion();
+                    } else if (nothingSelected()) {
+                        switchConfirm.setChecked(false);
+                    } else {
+                        endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
+                    }
+                    return false;
+                }
+            });
+
+            switchConfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (checkCorrect()) {
+                        awardPoints();
+                        advanceQuestion();
+                    } else if (skipped()){
+                        advanceQuestion();
+                    } else if (nothingSelected()) {
+                        switchConfirm.setChecked(false);
+                    } else {
+                        endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
+                    }
+                }
+            });
+
 //        } catch (Exception e) {
 //           e.printStackTrace();
 //        }
@@ -178,6 +214,9 @@ public class MainActivity extends AppCompatActivity {
         timeLeft.setText(String.format("%02d:%02d", minutes, seconds));
 
         runTimer(milisecondsLeft);
+        if (milisecondsLeft <= 0) {
+            endGame("You Ran out of Time!\nYour Score:\n" + score +"/20");
+        }
     }
 
     private boolean runTimer(final long millis) {
@@ -210,13 +249,14 @@ public class MainActivity extends AppCompatActivity {
         showAll(logo);
     }
 
-    private void endGame() {
+    private void endGame(String message) {
         stopped = true;
-        if (score >= 19) {
-            gameOver.setText("You Won!");
-        } else {
-            gameOver.setText("Game Over\nWord you misspelled: " + prompted);
-        }
+//        if (score >= 19) {
+//            gameOver.setText("You Won!");
+//        } else {
+//            gameOver.setText("Game Over\nWord you misspelled:\n " + prompted);
+//        }
+        gameOver.setText(message);
         hideAll(radioButtonCorrect, radioButtonIncorrect, radioButtonSkip, radioGroup, wordPrompt, switchConfirm);
         showAll(gameOver, startButton, scoreOfTwenty);
     }
@@ -265,10 +305,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void advanceQuestion() {
         words.remove(prompted);
+        if (words.isEmpty()) {
+            endGame("Game Over!\nYour score:\n\t" + score + "/20");
+            return;
+        }
         prompted = words.get(random.nextInt(words.size() - 1));
         wordPrompt.setText(prompted.getWord());
         switchConfirm.setChecked(false);
         radioGroup.clearCheck();
+        Toast.makeText(this, "Next Word!", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean nothingSelected() {
+        RadioButton rb = findViewById(radioGroup.getCheckedRadioButtonId());
+        return rb != radioButtonSkip && rb != radioButtonCorrect && rb != radioButtonIncorrect;
     }
 
     enum Word {
@@ -313,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
         String word;
         boolean spelledCorrectly;
 
-        private Word(String word, boolean spelledCorrectly) {
+         Word(String word, boolean spelledCorrectly) {
             this.word = word;
             this.spelledCorrectly = spelledCorrectly;
         }
@@ -327,48 +377,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
-}
-
- class TimerHelper extends Thread {
-
-    View[] views;
-    int seconds = 0;
-    boolean invert;
-    boolean countDown;
-
-    public TimerHelper(boolean invert, View...views) {
-        this.views = views;
-        this.invert = invert;
-        this.countDown = countDown;
-    }
-
-    private void invertVisibility() {
-        for ( View v : views ) {
-            switch (v.getVisibility()) {
-                case View.VISIBLE:
-                    v.setVisibility(View.INVISIBLE);
-                    break;
-                case View.INVISIBLE:
-                    v.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    public void reset() {
-        seconds = 0;
-        this.interrupt();
-    }
-
-
-
-    @Override
-    public void run() {
-       if (invert) {
-           invertVisibility();
-       }
     }
 }
