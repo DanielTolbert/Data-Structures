@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        words.addAll(Arrays.asList(Word.values()));
-        prompted = words.get(random.nextInt(Word.values().length - 1));
+
 //        try {
             makeTextViewTimeLeft();
             makeTextViewWordPrompt();
@@ -105,12 +104,11 @@ public class MainActivity extends AppCompatActivity {
         score = 0;
         scoreOfTwenty.setText("0/20\n%0");
         milisecondsLeft = SET_TIME;
-        hideAll(startButton, gameOver, llama);
         showAll(wordPrompt, switchConfirm, radioButtonSkip, radioButtonCorrect, radioButtonIncorrect, radioGroup, scoreOfTwenty);
-        runTimer(SET_TIME);
+        hideAll(startButton, gameOver, llama);
         words.clear();
         words.addAll(Arrays.asList(Word.values()));
-        advanceQuestion();
+        gameStart();
     }
 
     private void makeStartButton() {
@@ -152,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         switchConfirm.setChecked(false);
                     } else {
                         endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
+//                        return;
                     }
                 }
             });
@@ -168,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                         switchConfirm.setChecked(false);
                     } else {
                         endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
+                        return true;
                     }
                     return false;
                 }
@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         switchConfirm.setChecked(false);
                     } else {
                         endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
+                        return;
                     }
                 }
             });
@@ -216,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         runTimer(milisecondsLeft);
         if (milisecondsLeft <= 0) {
             endGame("You Ran out of Time!\nYour Score:\n" + score +"/20");
+            return;
         }
     }
 
@@ -259,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
         gameOver.setText(message);
         hideAll(radioButtonCorrect, radioButtonIncorrect, radioButtonSkip, radioGroup, wordPrompt, switchConfirm);
         showAll(gameOver, startButton, scoreOfTwenty);
+        words.clear();
     }
 
     private long getMiliseconds() {
@@ -301,6 +304,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             scoreOfTwenty.setText(score + "/20\n%" + df.format(((((double) score/20)) * 100)));
         }
+    }
+
+    private void gameStart() {
+        runTimer(SET_TIME);
+        words.addAll(Arrays.asList(Word.values()));
+        prompted = words.get(random.nextInt(Word.values().length - 1));
+        wordPrompt.setText(prompted.getWord());
+        switchConfirm.setChecked(false);
+        radioGroup.clearCheck();
+//        Toast.makeText(this, "Next Word!", Toast.LENGTH_SHORT).show();
     }
 
     private void advanceQuestion() {
