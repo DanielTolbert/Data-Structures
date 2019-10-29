@@ -12,7 +12,7 @@ public class ScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //splashScreen(3);
+        splashScreen(3);
     }
 
     private void splashScreen(int seconds) {
