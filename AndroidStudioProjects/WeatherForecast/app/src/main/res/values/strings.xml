@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+    <string name="advance_day">Next Day</string>
+    <string name="return_day">Last Day</string>
+</resources>

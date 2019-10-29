@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
@@ -138,22 +139,22 @@ public class MainActivity extends AppCompatActivity {
     private void makeSwitchConfirm() {
 //        try {
             switchConfirm = findViewById(R.id.switchConfirm);
-            switchConfirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (checkCorrect()) {
-                        awardPoints();
-                        advanceQuestion();
-                    } else if (skipped()){
-                        advanceQuestion();
-                    } else if (nothingSelected()) {
-                        switchConfirm.setChecked(false);
-                    } else {
-                        endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
-//                        return;
-                    }
-                }
-            });
+//            switchConfirm.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (checkCorrect()) {
+//                        awardPoints();
+//                        advanceQuestion();
+//                    } else if (skipped()){
+//                        advanceQuestion();
+//                    } else if (nothingSelected()) {
+//                        switchConfirm.setChecked(false);
+//                    } else {
+//                        endGame("1 You Lost!\nWord you Misspelled:\n\t" + prompted);
+////                        return;
+//                    }
+//                }
+//            });
 
             switchConfirm.setOnDragListener(new View.OnDragListener() {
                 @Override
@@ -161,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
                     if (checkCorrect()) {
                         awardPoints();
                         advanceQuestion();
-                    } else if (skipped()){
+                    } else if (skipped()) {
+                        Log.i( "42069", "Skipped");
                         advanceQuestion();
                     } else if (nothingSelected()) {
                         switchConfirm.setChecked(false);
@@ -176,16 +178,19 @@ public class MainActivity extends AppCompatActivity {
             switchConfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (checkCorrect()) {
-                        awardPoints();
-                        advanceQuestion();
-                    } else if (skipped()){
-                        advanceQuestion();
-                    } else if (nothingSelected()) {
-                        switchConfirm.setChecked(false);
-                    } else {
-                        endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
-                        return;
+                    if (isChecked) {
+                        if (checkCorrect()) {
+                            awardPoints();
+                            advanceQuestion();
+                        } else if (skipped()){
+                            Log.i( "42069", "Skipped");
+                            advanceQuestion();
+                        } else if (nothingSelected()) {
+                            switchConfirm.setChecked(false);
+                        } else {
+                            endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
+                            return;
+                        }
                     }
                 }
             });
@@ -256,12 +261,12 @@ public class MainActivity extends AppCompatActivity {
 //        if (score >= 19) {
 //            gameOver.setText("You Won!");
 //        } else {
-//            gameOver.setText("Game Over\nWord you misspelled:\n " + prompted);
 //        }
         gameOver.setText(message);
         hideAll(radioButtonCorrect, radioButtonIncorrect, radioButtonSkip, radioGroup, wordPrompt, switchConfirm);
         showAll(gameOver, startButton, scoreOfTwenty);
         words.clear();
+        score = 0;
     }
 
     private long getMiliseconds() {
