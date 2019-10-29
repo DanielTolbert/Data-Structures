@@ -11,7 +11,7 @@ public class ScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_screen);
         splashScreen(3);
     }
 
@@ -28,8 +28,9 @@ public class ScreenActivity extends AppCompatActivity {
     }
 
     private void changeActivity() {
-        Intent intent = new Intent(getBaseContext(), ScreenActivity.class);
+        Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

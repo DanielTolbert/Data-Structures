@@ -49,17 +49,17 @@ public class Weather {
         return week[index];
     }
     enum WeatherPattern {
-        SUNNY(R.drawable.sunny, "Sunny", 0),
-        CLOUDY(R.drawable.cloudy, "Cloudy", 1),
-        RAINY(R.drawable.rainy, "Rainy", 2),
-        SNOWY(R.drawable.snowy, "Snowy", 3);
+        SUNNY(R.drawable.sunny, R.string.sunny, 0),
+        CLOUDY(R.drawable.cloudy, R.string.cloudy, 1),
+        RAINY(R.drawable.rainy, R.string.rainy, 2),
+        SNOWY(R.drawable.snowy, R.string.snowy, 3);
 
         private int resid;
         private int val;
-        private String pattern;
+        private int patternId;
 
-        WeatherPattern(int resid, String pattern, int val) {
-            this.pattern = pattern;
+        WeatherPattern(int resid, int patterId, int val) {
+            this.patternId = patternId;
             this.resid = resid;
             this.val = val;
         }
@@ -68,8 +68,8 @@ public class Weather {
             return resid;
         }
 
-        public String getPattern() {
-            return pattern;
+        public int getPatternId() {
+            return patternId;
         }
 
         public int getVal() {
