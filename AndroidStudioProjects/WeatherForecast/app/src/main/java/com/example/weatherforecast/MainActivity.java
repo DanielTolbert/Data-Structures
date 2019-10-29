@@ -79,15 +79,16 @@ public class MainActivity extends AppCompatActivity {
         textViewWeatherPattern = findViewById(R.id.textViewWeatherPattern);
         imageViewWeather = findViewById(R.id.imageViewWeather);
         textViewDayNumber = findViewById(R.id.textViewDayNumber);
-        textViewDayNumber.setText("Day: " + currentDay);
     }
 
     private void updateWeather() {
         Weather weather = forecastWeather(currentDay);
         textViewDayName.setText(Weather.calculateDayOfWeek(currentDay));
         textViewWeatherPattern.setText( weatherIds[weather.getWeatherPattern().getVal()] );
-        textViewTemperatures.setText("High: " + weather.getHiTemp() + "°F" + "\nLow: " + weather.getLoTemp() + "°F");
+        textViewTemperatures.setText((String)getResources().getText(R.string.High) + ": " + weather.getHiTemp() + "°F" + "\n" + (String)getResources().getString(R.string.Low) +": "+ weather.getLoTemp() + "°F");
         imageViewWeather.setImageResource(weather.getWeatherPattern().getId());
+        textViewDayNumber.setText(getResources().getString(R.string.Day)+": " + (currentDay + 1));
+
     }
 
     private void makeButtonAdvance() {

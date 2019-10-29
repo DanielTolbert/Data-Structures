@@ -7,4 +7,7 @@
     <string name="sunny">Sunny</string>
     <string name="snowy">Snowy</string>
     <string name="cloudy">Cloudy</string>
+    <string name="Day">Day</string>
+    <string name="High">High</string>
+    <string name="Low">Low</string>
 </resources>
