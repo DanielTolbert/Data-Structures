@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int currentDay = 0;
     int originalDay = 0;
     int scalar = fRandom.nextInt(100);
-//    int weatherIds[]
+    int weatherIds[] = {R.string.sunny, R.string.cloudy, R.string.rainy, R.string.snowy};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         random.setSeed(day + scalar);
         int hi = random.nextInt(120);
-        int lowbound = hi - 20 < 0? 0 : hi - 20;
-        int low = random.nextInt(lowbound);
+        int lowbound = 7;
+        int num = random.nextInt(lowbound);
+        int low = hi - num < 0 ? 0 : hi - num;
 
         boolean precipitating = random.nextBoolean();
         Weather.WeatherPattern pattern;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentDay = originalDay;
+                updateWeather();
             }
         });
     }
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateWeather() {
         Weather weather = forecastWeather(currentDay);
         textViewDayName.setText(Weather.calculateDayOfWeek(currentDay));
-//        textViewWeatherPattern.setText( R.string.cloudy );
+        textViewWeatherPattern.setText( weatherIds[weather.getWeatherPattern().getVal()] );
         textViewTemperatures.setText("High: " + weather.getHiTemp() + "°F" + "\nLow: " + weather.getLoTemp() + "°F");
         imageViewWeather.setImageResource(weather.getWeatherPattern().getId());
     }
