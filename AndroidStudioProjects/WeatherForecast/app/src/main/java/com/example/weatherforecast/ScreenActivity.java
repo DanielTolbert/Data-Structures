@@ -30,7 +30,7 @@ public class ScreenActivity extends AppCompatActivity {
     private void changeActivity() {
         Intent intent = new Intent(getBaseContext(), MainActivity.class);
         startActivity(intent);
-        finish();
+//        finish();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.weatherforecast;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.Drawable;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     int currentDay = 0;
     int originalDay = 0;
     int scalar = fRandom.nextInt(100);
+//    int weatherIds[]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         makeButtonGoBack();
         makeButtonReturn();
         makeMiscellaneousViews();
+        updateWeather();
     }
 
     private Weather forecastWeather(int day) {
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         random.setSeed(day + scalar);
         int hi = random.nextInt(120);
-        int lowbound = hi - 20;
+        int lowbound = hi - 20 < 0? 0 : hi - 20;
         int low = random.nextInt(lowbound);
 
         boolean precipitating = random.nextBoolean();
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateWeather() {
         Weather weather = forecastWeather(currentDay);
         textViewDayName.setText(Weather.calculateDayOfWeek(currentDay));
-        textViewWeatherPattern.setText(weather.getWeatherPattern().getPatternId());
+//        textViewWeatherPattern.setText( R.string.cloudy );
         textViewTemperatures.setText("High: " + weather.getHiTemp() + "°F" + "\nLow: " + weather.getLoTemp() + "°F");
         imageViewWeather.setImageResource(weather.getWeatherPattern().getId());
     }
