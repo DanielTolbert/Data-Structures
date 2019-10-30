@@ -3,6 +3,8 @@ package com.example.typingapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -83,11 +85,28 @@ public class MainActivity extends AppCompatActivity {
     private void createEditText() {
         plainText = findViewById(R.id.editTextTypeBox);
 
-        plainText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//        plainText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                return false;
+//            }
+//        });
+
+        plainText.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 updateSeekBar();
-                return false;
+                updateDisplayedWord(wordsTyped[seekBar.getProgress()]);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -114,7 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDisplayedWord(String pWord) {
         displayedWord = pWord;
-        displayed.setText("Word " + ( seekBar.getProgress() + 1 ) + ": " + displayedWord);
+        if (plainText.getText().toString().isEmpty()) {
+            displayed.setText("");
+        } else {
+            displayed.setText("Word " + ( seekBar.getProgress() + 1 ) + ": " + displayedWord);
+        }
     }
 
     private String getDisplayedWord() {

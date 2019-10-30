@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+    <string name="advance_day">Next Day</string>
+    <string name="return_day">Last Day</string>
+    <string name="return_original_day">Return to Original Day</string>
+    <string name="rainy">Rainy</string>
+    <string name="sunny">Sunny</string>
+    <string name="snowy">Snowy</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="Day">Day</string>
+    <string name="High">High</string>
+    <string name="Low">Low</string>
+</resources>
