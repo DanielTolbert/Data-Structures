@@ -1,11 +1,23 @@
-public class Edge {
+public class Edge implements Comparable{
 
     private Dot a;
     private Dot b;
+    private int fill;
+    private String name;
+    private int[] color;
 
     public Edge(Dot a, Dot b) {
+        this(a, b, 0, 0, 0);
+    }
+
+    public Edge(Dot a, Dot b, int... color) {
         this.a = a;
         this.b = b;
+        this.name = hashCode() + "";
+        this.color = color;
+
+        a.addConnected( this );
+        b.addConnected( this );
     }
 
     public Dot getConnectingDotA() {
@@ -16,9 +28,60 @@ public class Edge {
         return b;
     }
 
-    public boolean equals(Edge otherEdge) {
-        return a == otherEdge.getConnectingDotA() && b == otherEdge.getConnectingDotB();
+    public int getRed() {
+        return color[0];
     }
 
+    public int getGreen() {
+        return color[1];
+    }
 
+    public int getBlue() {
+        return color[2];
+    }
+    public int getFill() {
+        return fill;
+    }
+
+    public void setColor(int... color) {
+        this.color = color;
+    }
+
+    public void setStroke( int fill) {
+        this.fill = fill;
+    }
+
+    public int getLength() {
+        return (int)Math.sqrt( Math.pow((b.getX() - a.getX()), 2) + Math.pow((b.getY() - a.getY()), 2) );
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Edge get() {
+        return this;
+    }
+
+    public boolean equals(Edge otherEdge) {
+        return (a == otherEdge.getConnectingDotA() && b == otherEdge.getConnectingDotB() ) || (a == otherEdge.getConnectingDotB() && b == otherEdge.getConnectingDotA());
+    }
+
+    public int compareTo(Object o) {
+        if(getLength() < ((Edge)o).getLength()) {
+            return -1;
+        } else if ( getLength() > ((Edge)o).getLength() ) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public static int compare(Edge x, Edge y) {
+        return (x.getLength() < y.getLength()) ? -1 : ((x.getLength() == y.getLength()) ? 0 : 1);
+    }
+
+    @Override
+    public String toString() {
+        return getLength() + "";
+    }
 }
