@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView logo;
     ImageView background;
     ImageView llama;
+    TextView switchLabel;
     Switch switchConfirm;
     Handler timerHandler = new Handler();
     Random random = new Random();
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             makeTextViewScore();
             makeImageViewLogo();
             makeLlamaImage();
+            makeTextViewLabel();
             splashScreen();
             hideAll(wordPrompt, switchConfirm, radioGroup, radioButtonIncorrect, radioButtonCorrect, radioButtonSkip, gameOver, scoreOfTwenty);
 //            showAll(startButton, llama);
@@ -99,12 +102,16 @@ public class MainActivity extends AppCompatActivity {
         scoreOfTwenty.setText("0/20\n%0");
     }
 
+    private void makeTextViewLabel() {
+        switchLabel = findViewById(R.id.textViewSwitchLabel);
+    }
+
     private void startGame() {
         stopped = false;
         score = 0;
         scoreOfTwenty.setText("0/20\n%0");
         milisecondsLeft = SET_TIME;
-        showAll(wordPrompt, switchConfirm, radioButtonSkip, radioButtonCorrect, radioButtonIncorrect, radioGroup, scoreOfTwenty);
+        showAll(wordPrompt, switchConfirm, radioButtonSkip, radioButtonCorrect, radioButtonIncorrect, radioGroup, scoreOfTwenty, switchLabel);
         hideAll(startButton, gameOver, llama);
         words.clear();
         words.addAll(Arrays.asList(Word.values()));
@@ -176,16 +183,18 @@ public class MainActivity extends AppCompatActivity {
             switchConfirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (checkCorrect()) {
-                        awardPoints();
-                        advanceQuestion();
-                    } else if (skipped()){
-                        advanceQuestion();
-                    } else if (nothingSelected()) {
-                        switchConfirm.setChecked(false);
-                    } else {
-                        endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
-                        return;
+                    if ( isChecked ) {
+                        if (checkCorrect()) {
+                            awardPoints();
+                            advanceQuestion();
+                        } else if (skipped()){
+                            advanceQuestion();
+                        } else if (nothingSelected()) {
+                            switchConfirm.setChecked(false);
+                        } else {
+                            endGame("You Lost!\nWord you Misspelled:\n\t" + prompted);
+                            return;
+                        }
                     }
                 }
             });
@@ -239,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void splashScreen() {
-        hideAll(startButton, timeLeft, llama, radioGroup, radioButtonIncorrect, radioButtonCorrect, radioButtonSkip, switchConfirm);
+        hideAll(startButton, timeLeft, llama, radioGroup, radioButtonIncorrect, radioButtonCorrect, radioButtonSkip, switchConfirm, switchLabel);
         Handler h = new Handler();
         h.postDelayed(new Runnable() {
             @Override
@@ -318,11 +327,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void advanceQuestion() {
         words.remove(prompted);
-        if (words.isEmpty()) {
+        Log.i("WordSizeCheck", words.size() + "");
+        if (words.size() <= 1) {
             endGame("Game Over!\nYour score:\n\t" + score + "/20");
             return;
         }
-        prompted = words.get(random.nextInt(words.size() - 1));
+        int index = words.size() - 1 > 0 ? words.size() - 1 : 0;
+        prompted = words.get(random.nextInt(index));
         wordPrompt.setText(prompted.getWord());
         switchConfirm.setChecked(false);
         radioGroup.clearCheck();

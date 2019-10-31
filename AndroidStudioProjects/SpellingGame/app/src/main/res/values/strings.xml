@@ -6,5 +6,6 @@
     <string name="RadioButtonSkip">Skip</string>
     <string name="TextViewGameOver">Game Over</string>
     <string name="ButtonStartGame">Start!</string>
+    <string name="SwitchLabel">Confirm!</string>
     <string name="SwitchConfirm"><Confirm></Confirm></string>
 </resources>
