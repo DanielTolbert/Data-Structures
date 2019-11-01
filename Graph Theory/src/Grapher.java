@@ -99,6 +99,7 @@ public class Grapher extends PApplet {
         }
 
         if ( key == 'p' ) {
+            allPossibleEdges(true);
             prims( dots );
         }
 
