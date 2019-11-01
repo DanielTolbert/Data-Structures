@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Color Game</string>
+    <string name="homeTitle">Color Estimating Game</string>
+    <string name="buttonGameLabel">Begin!</string>
+    <string name="buttonResultsLabel">Current Standings</string>
+    <string name="redInput">Red Value</string>
+    <string name="greenInput">Green Value</string>
+    <string name="blueInput">Blue Value</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="submit">Submit!</string>
+</resources>
