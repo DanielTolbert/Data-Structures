@@ -1,11 +1,11 @@
 package com.example.colorgame;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.FontRequest;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -13,7 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+import java.util.stream.Collector;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -29,13 +32,17 @@ public class GameActivity extends AppCompatActivity {
 
     Random random = new Random();
 
+    Double[] rgbGuess = {0d,0d,0d};
+    int[] rgbAnswer = {0,0,0};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-//        setBackgroundColor(random.nextInt(255), random.nextInt(255), random.nextInt(255));
         createMiscellaneousViews();
         makeButtonSubmit();
+        createEditTexts();
+        setBackgroundColor(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
 
     private void createMiscellaneousViews() {
@@ -49,62 +56,48 @@ public class GameActivity extends AppCompatActivity {
         editTextGreen = findViewById(R.id.editTextGreenInput);
         editTextRed = findViewById(R.id.editTextRedInput);
 
-        editTextBlue.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        makeEditTextListeners(editTextBlue, editTextGreen, editTextRed);
 
-            }
+        editTextGreen.setBackgroundColor(Color.WHITE);
+        editTextRed.setBackgroundColor(Color.WHITE);
+        editTextBlue.setBackgroundColor(Color.WHITE);
+    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(Double.parseDouble((String)s) > 255) {
-                    editTextBlue.setText("255");
+    private void makeEditTextListeners(final EditText...texts) {
+        ArrayList<EditText> editTexts = new ArrayList<>();
+        editTexts.add(texts[0]);
+        editTexts.add(texts[1]);
+        editTexts.add(texts[2]);
+        final ArrayList<EditText> editTextArrayList = editTexts;
+        for (final EditText editText : texts) {
+            editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
                 }
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        editTextRed.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(Double.parseDouble((String)s) > 255) {
-                    editTextRed.setText("255");
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(!editText.getText().toString().isEmpty()) {
+                        if ( Double.parseDouble(editText.getText().toString()) > 255) {
+                            editText.setText("255");
+                            editText.setSelection(start);
+                        }
+                    }
                 }
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                @Override
+                public void afterTextChanged(Editable s) {
 
-            }
-        });
-
-        editTextGreen.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(Double.parseDouble((String)s) > 255) {
-                    editTextGreen.setText("255");
                 }
-            }
+            });
+        }
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+    private void makeGuessArray() {
+        rgbGuess[0] = Double.parseDouble(editTextRed.getText().toString());
+        rgbGuess[1] = Double.parseDouble(editTextGreen.getText().toString());
+        rgbGuess[2] = Double.parseDouble(editTextBlue.getText().toString());
     }
 
     private void makeButtonSubmit() {
@@ -113,14 +106,21 @@ public class GameActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                
+                makeGuessArray();
+                Intent intent = new Intent(getBaseContext(), ResultsActivity.class);
+                intent.putExtra("RGB Array Guess", rgbGuess);
+                intent.putExtra("RGB Array Answers", rgbAnswer);
+                startActivity(intent);
             }
         });
     }
 
     private void setBackgroundColor(int r, int g, int b) {
         View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(Color.argb(0, r, g, b));
+        view.setBackgroundColor(Color.rgb(r, g, b));
+
+        rgbAnswer[0] = r;
+        rgbAnswer[1] = g;
+        rgbAnswer[2] = b;
     }
 }
