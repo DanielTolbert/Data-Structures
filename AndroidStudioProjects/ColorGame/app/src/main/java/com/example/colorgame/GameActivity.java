@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.FontRequest;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.TreeMap;
 import java.util.stream.Collector;
 
 public class GameActivity extends AppCompatActivity {
@@ -32,8 +34,8 @@ public class GameActivity extends AppCompatActivity {
 
     Random random = new Random();
 
-    Double[] rgbGuess = {0d,0d,0d};
-    int[] rgbAnswer = {0,0,0};
+    double[] rgbGuess = {0d,0d,0d};
+    double[] rgbAnswer = {0,0,0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +110,16 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 makeGuessArray();
                 Intent intent = new Intent(getBaseContext(), ResultsActivity.class);
-                intent.putExtra("RGB Array Guess", rgbGuess);
-                intent.putExtra("RGB Array Answers", rgbAnswer);
+                ArrayList<Double> rgbs = new ArrayList<>();
+                for (double d : rgbAnswer) {
+                    rgbs.add(d);
+                }
+
+                for (double d : rgbGuess) {
+                    rgbs.add(d);
+                }
+                Log.i("Array Check", rgbs.toArray().toString());
+                intent.putExtra("rgb answers guesses", rgbs.toArray());
                 startActivity(intent);
             }
         });

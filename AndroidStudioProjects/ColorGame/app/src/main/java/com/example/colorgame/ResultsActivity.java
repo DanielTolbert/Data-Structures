@@ -2,27 +2,38 @@ package com.example.colorgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    double[] rgbArrayGuesses = (getIntent().getDoubleArrayExtra("RGB Array Guess"));
-    double[] rgbArrayAnswers = getIntent().getDoubleArrayExtra("RBG Array Answers");
+
 
     TextView textViewResults;
+    double[] rgbValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         createMiscellaneousViews();
+        receiveData();
+//        createMiscellaneousViews();
+    }
+
+    private void receiveData() {
+        Intent intent = getIntent();
+        double[] doubles = {1,1,1,1};
+        Log.i("Array Check", doubles.toString());
+
     }
 
     private double getDistance() {
-        return Math.pow(Math.pow(rgbArrayAnswers[0] - rgbArrayGuesses[0], 3) +
-                Math.pow(rgbArrayAnswers[1] - rgbArrayGuesses[1], 3) +
-                Math.pow(rgbArrayAnswers[2] - rgbArrayGuesses[2], 3),(1d/3d));
+        return Math.pow(Math.pow(rgbValues[0] - rgbValues[3], 3) +
+                Math.pow(rgbValues[1] - rgbValues[4], 3) +
+                Math.pow(rgbValues[2] - rgbValues[5], 3),(1d/2d));
     }
 
     private void createMiscellaneousViews() {
