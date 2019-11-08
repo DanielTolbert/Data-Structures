@@ -14,6 +14,10 @@ public class ResultsActivity extends AppCompatActivity {
 
 
     TextView textViewResults;
+    TextView textViewRedDistance;
+    TextView textViewGreenDistance;
+    TextView textViewBlueDistance;
+
     double[] guesses = new double[3];
     double[] answers = new double[3];
 
@@ -46,7 +50,16 @@ public class ResultsActivity extends AppCompatActivity {
 
     private void createMiscellaneousViews() {
         textViewResults = findViewById(R.id.textViewResults);
+        textViewRedDistance = findViewById(R.id.textViewRedDistance);
+        textViewBlueDistance = findViewById(R.id.textViewBlueLabel);
+        textViewGreenDistance = findViewById(R.id.textViewGreenDistance);
+
+
         textViewResults.setText("You were " + getDistance() + " off.");
+        textViewRedDistance.setText(answers[0] - guesses[0] + "");
+        textViewGreenDistance.setText(answers[1] - guesses[1] + "");
+        textViewBlueDistance.setText(answers[2] - guesses[2] + "");
+
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(Color.rgb((int)answers[0],(int)answers[1],(int)answers[2]));
     }

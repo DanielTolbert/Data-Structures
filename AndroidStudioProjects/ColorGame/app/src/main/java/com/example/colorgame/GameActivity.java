@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if(!editText.getText().toString().isEmpty()) {
                         if ( Double.parseDouble(editText.getText().toString()) > 255) {
-                            editText.setText("255");
+                            editText.setText(s.toString().substring(0, start));
                             editText.setSelection(start);
                         }
                     }
