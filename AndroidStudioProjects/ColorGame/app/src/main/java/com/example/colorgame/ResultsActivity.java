@@ -3,8 +3,10 @@ package com.example.colorgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class ResultsActivity extends AppCompatActivity {
@@ -12,7 +14,8 @@ public class ResultsActivity extends AppCompatActivity {
 
 
     TextView textViewResults;
-    double[] rgbValues;
+    double[] guesses = new double[3];
+    double[] answers = new double[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,25 +23,32 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         createMiscellaneousViews();
         receiveData();
-//        createMiscellaneousViews();
+        createMiscellaneousViews();
     }
 
     private void receiveData() {
         Intent intent = getIntent();
-        double[] doubles = {1,1,1,1};
-        Log.i("Array Check", doubles.toString());
-
+        guesses[0] = intent.getDoubleArrayExtra(GameActivity.GUESSES_KEY)[0];
+        guesses[1] = intent.getDoubleArrayExtra(GameActivity.GUESSES_KEY)[1];
+        guesses[2] = intent.getDoubleArrayExtra(GameActivity.GUESSES_KEY)[2];
+        answers[0] = intent.getDoubleArrayExtra(GameActivity.ANSWERS_KEY)[0];
+        answers[1] = intent.getDoubleArrayExtra(GameActivity.ANSWERS_KEY)[1];
+        answers[2] = intent.getDoubleArrayExtra(GameActivity.ANSWERS_KEY)[2];
     }
 
     private double getDistance() {
-        return Math.pow(Math.pow(rgbValues[0] - rgbValues[3], 3) +
-                Math.pow(rgbValues[1] - rgbValues[4], 3) +
-                Math.pow(rgbValues[2] - rgbValues[5], 3),(1d/2d));
+
+        return Math.pow(Math.pow(answers[0]
+                - guesses[0], 3) +
+                Math.pow(answers[1] - guesses[1], 3) +
+                Math.pow(answers[2] - guesses[2], 3),(1d/2d));
     }
 
     private void createMiscellaneousViews() {
         textViewResults = findViewById(R.id.textViewResults);
         textViewResults.setText("You were " + getDistance() + " off.");
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(Color.rgb((int)answers[0],(int)answers[1],(int)answers[2]));
     }
 
     private void displayResults() {

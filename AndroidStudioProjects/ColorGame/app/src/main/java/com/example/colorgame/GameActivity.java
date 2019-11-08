@@ -32,10 +32,14 @@ public class GameActivity extends AppCompatActivity {
     EditText editTextGreen;
     EditText editTextBlue;
 
+    public static final String GUESSES_KEY = "guesses";
+    public static final String ANSWERS_KEY = "answers";
+
     Random random = new Random();
 
-    double[] rgbGuess = {0d,0d,0d};
-    double[] rgbAnswer = {0,0,0};
+    double[] answers;
+    double[] guesses;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
         createMiscellaneousViews();
         makeButtonSubmit();
         createEditTexts();
-        setBackgroundColor(random.nextInt(255), random.nextInt(255), random.nextInt(255));
+        answers = setBackgroundColor(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
 
     private void createMiscellaneousViews() {
@@ -96,10 +100,14 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void makeGuessArray() {
+    private double[] makeGuessArray() {
+        double rgbGuess[] = new double[3];
+
         rgbGuess[0] = Double.parseDouble(editTextRed.getText().toString());
         rgbGuess[1] = Double.parseDouble(editTextGreen.getText().toString());
         rgbGuess[2] = Double.parseDouble(editTextBlue.getText().toString());
+
+        return rgbGuess;
     }
 
     private void makeButtonSubmit() {
@@ -108,29 +116,25 @@ public class GameActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeGuessArray();
+                guesses = makeGuessArray();
                 Intent intent = new Intent(getBaseContext(), ResultsActivity.class);
-                ArrayList<Double> rgbs = new ArrayList<>();
-                for (double d : rgbAnswer) {
-                    rgbs.add(d);
-                }
-
-                for (double d : rgbGuess) {
-                    rgbs.add(d);
-                }
-                Log.i("Array Check", rgbs.toArray().toString());
-                intent.putExtra("rgb answers guesses", rgbs.toArray());
+                intent.putExtra(GUESSES_KEY, guesses);
+                intent.putExtra(ANSWERS_KEY, answers);
                 startActivity(intent);
             }
         });
     }
 
-    private void setBackgroundColor(int r, int g, int b) {
+    private double[] setBackgroundColor(int r, int g, int b) {
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(Color.rgb(r, g, b));
+
+        double[] rgbAnswer = new double[3];
 
         rgbAnswer[0] = r;
         rgbAnswer[1] = g;
         rgbAnswer[2] = b;
+
+        return rgbAnswer;
     }
 }
