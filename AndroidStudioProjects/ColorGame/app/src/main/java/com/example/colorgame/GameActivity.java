@@ -14,10 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.TreeMap;
+import java.util.function.DoubleBinaryOperator;
 import java.util.stream.Collector;
 
 public class GameActivity extends AppCompatActivity {
@@ -37,8 +39,8 @@ public class GameActivity extends AppCompatActivity {
 
     Random random = new Random();
 
-    double[] answers;
-    double[] guesses;
+    ArrayList<String> answers;
+    ArrayList<String> guesses;
 
 
     @Override
@@ -100,12 +102,12 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private double[] makeGuessArray() {
-        double rgbGuess[] = new double[3];
+    private ArrayList<String> makeGuessArray() {
+        ArrayList<String> rgbGuess = new ArrayList<>();
 
-        rgbGuess[0] = Double.parseDouble(editTextRed.getText().toString());
-        rgbGuess[1] = Double.parseDouble(editTextGreen.getText().toString());
-        rgbGuess[2] = Double.parseDouble(editTextBlue.getText().toString());
+        rgbGuess.add(Double.parseDouble(editTextRed.getText().toString()) + "");
+        rgbGuess.add(Double.parseDouble(editTextGreen.getText().toString()) + "");
+        rgbGuess.add(Double.parseDouble(editTextBlue.getText().toString()) + "");
 
         return rgbGuess;
     }
@@ -118,22 +120,34 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 guesses = makeGuessArray();
                 Intent intent = new Intent(getBaseContext(), ResultsActivity.class);
-                intent.putExtra(GUESSES_KEY, guesses);
-                intent.putExtra(ANSWERS_KEY, answers);
+                String[] guess = new String[3];
+                String[] ans = new String[3];
+
+                for(int i = 0; i < 3; i ++) {
+                    guess[i] = guesses.get(i);
+                    ans[i] = answers.get(i);
+                }
+
+                String a = ans[0] + " " + ans[1] + " " + ans[2];
+                String g = guess[0] + " " + guess[1] + " " + guess[2];
+
+
+                intent.putExtra(GameActivity.GUESSES_KEY, g);
+                intent.putExtra(GameActivity.ANSWERS_KEY, a);
                 startActivity(intent);
             }
         });
     }
 
-    private double[] setBackgroundColor(int r, int g, int b) {
+    private ArrayList<String> setBackgroundColor(int r, int g, int b) {
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(Color.rgb(r, g, b));
 
-        double[] rgbAnswer = new double[3];
+        ArrayList<String> rgbAnswer = new ArrayList<>();
 
-        rgbAnswer[0] = r;
-        rgbAnswer[1] = g;
-        rgbAnswer[2] = b;
+        rgbAnswer.add(Double.valueOf(r) + "");
+        rgbAnswer.add(Double.valueOf(g) + "");
+        rgbAnswer.add(Double.valueOf(b) + "");
 
         return rgbAnswer;
     }
