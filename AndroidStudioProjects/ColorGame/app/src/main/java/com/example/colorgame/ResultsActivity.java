@@ -64,7 +64,7 @@ public class ResultsActivity extends AppCompatActivity {
 //        Log.i("TVGD", textViewBlueDistance.toString());
         Log.i("TVBD", textViewGreenDistance.toString());
 
-        textViewResults.setText("You were " + getDistance() + " off.");
+        textViewResults.setText("You were \n" + getDistance() + " off.");
         textViewRedDistance.setText(Double.valueOf(answers[0])- Double.valueOf(guesses[0]) + "");
         textViewGreenDistance.setText(Double.valueOf(answers[1]) - Double.valueOf(guesses[1]) + "");
         textViewBlueDistance.setText(Double.valueOf(answers[2]) - Double.valueOf(guesses[2] )+ "");
