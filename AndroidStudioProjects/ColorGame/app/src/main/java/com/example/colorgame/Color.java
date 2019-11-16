@@ -2,16 +2,18 @@ package com.example.colorgame;
 
 import java.util.ArrayList;
 
-public class Color {
+public class Color implements Comparable{
 
     private int r, g, b;
-    private static ArrayList<Color> standings;
+    public static ArrayList<Color> standings = new ArrayList<>();
+    private double distance;
 
     public Color(int r, int g, int b) {
         this.r = r;
         this.g = g;
         this.b = b;
-        standings.add(new Color(r,g,b));
+//        standings.add(new Color(r,g,b));
+        calcDistance(r,g,b);
     }
 
     public int[] getRGB() {
@@ -19,12 +21,42 @@ public class Color {
         return rgb;
     }
 
-    public double getDistance() {
-        Math.pow(Math.pow(Double.valueOf(answers[0])
-                - Double.valueOf(guesses[0]), 3) +
-                Math.pow(Double.valueOf(answers[1]) - Double.valueOf(guesses[1]), 3) +
-                Math.pow(Double.valueOf(answers[2]) - Double.valueOf(guesses[2]), 3),(1d/2d))
+    public int getR() {
+        return r;
+    }
+
+    public int getG() {
+        return g;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public void calcDistance(int guessR, int guessG, int guessB) {
+        distance =  Math.pow(Math.pow((r)
+                - (guessR), 3) +
+                Math.pow((g) - (guessG), 3) +
+                Math.pow((b) - (guessB), 3),(1d/2d));
+    }
+
+    public  double getDistance() {
+        return distance;
+    }
+
+    public static ArrayList<Color> getStandings() {
+        return standings;
     }
 
 
+    @Override
+    public int compareTo(Object o) {
+        if (((Color)o).getDistance() > this.getDistance()) {
+            return -1;
+        } else if (((Color)o).getDistance() == this.getDistance()) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }

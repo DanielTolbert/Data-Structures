@@ -3,11 +3,15 @@ package com.example.colorgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
+//import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import com.example.colorgame.Color;
+
+import java.text.DecimalFormat;
 
 public class ResultsActivity extends AppCompatActivity {
 
@@ -17,6 +21,8 @@ public class ResultsActivity extends AppCompatActivity {
     TextView textViewRedDistance;
     TextView textViewGreenDistance;
     TextView textViewBlueDistance;
+
+    Button buttonHome;
 
     String[] guesses = new String[3];
     String[] answers = new String[3];
@@ -29,7 +35,7 @@ public class ResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         receiveData();
         createMiscellaneousViews();
-//        createMiscellaneousViews();
+        createStanding();
     }
 
     private void receiveData() {
@@ -46,6 +52,13 @@ public class ResultsActivity extends AppCompatActivity {
 
     }
 
+    private void createStanding() {
+        com.example.colorgame.Color color = new Color((int) Double.parseDouble(answers[0]),
+                (int) Double.parseDouble(answers[1]),
+                (int) Double.parseDouble(answers[2]));
+        color.calcDistance((int)Double.parseDouble(guesses[0]), (int)Double.parseDouble(guesses[1]), (int)Double.parseDouble(guesses[2]));
+        Color.standings.add(color);
+    }
     private double getDistance() {
 
         return Math.pow(Math.pow(Double.valueOf(answers[0])
@@ -64,14 +77,26 @@ public class ResultsActivity extends AppCompatActivity {
 //        Log.i("TVGD", textViewBlueDistance.toString());
         Log.i("TVBD", textViewGreenDistance.toString());
 
-        textViewResults.setText("You were \n" + getDistance() + " off.");
+        String format = "0.00";
+        DecimalFormat decimalFormat = new DecimalFormat(format);
+
+        textViewResults.setText("You were \n" + decimalFormat.format(getDistance()) + " off.");
         textViewRedDistance.setText(Double.valueOf(answers[0])- Double.valueOf(guesses[0]) + "");
         textViewGreenDistance.setText(Double.valueOf(answers[1]) - Double.valueOf(guesses[1]) + "");
         textViewBlueDistance.setText(Double.valueOf(answers[2]) - Double.valueOf(guesses[2] )+ "");
 
         View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(Color.rgb((int)(double)Double.valueOf(answers[0]),(int)(double)Double.valueOf(answers[1]),
+        view.setBackgroundColor(android.graphics.Color.rgb((int)(double)Double.valueOf(answers[0]),(int)(double)Double.valueOf(answers[1]),
                 (int)(double)Double.valueOf(answers[2])));
+
+        buttonHome = findViewById(R.id.buttonHomeFromResults);
+        buttonHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void displayResults() {
