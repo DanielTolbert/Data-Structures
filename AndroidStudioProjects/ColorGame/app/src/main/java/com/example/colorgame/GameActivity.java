@@ -132,7 +132,6 @@ public class GameActivity extends AppCompatActivity {
                 String a = ans[0] + " " + ans[1] + " " + ans[2];
                 String g = guess[0] + " " + guess[1] + " " + guess[2];
 
-                Log.i("TORNA", com.example.colorgame.Color.getStandings().size() + "");
 
 
                 intent.putExtra(GameActivity.GUESSES_KEY, g);

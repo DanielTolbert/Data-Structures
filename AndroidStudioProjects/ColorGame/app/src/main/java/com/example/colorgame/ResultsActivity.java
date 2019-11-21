@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import com.example.colorgame.Color;
 
@@ -21,6 +22,10 @@ public class ResultsActivity extends AppCompatActivity {
     TextView textViewRedDistance;
     TextView textViewGreenDistance;
     TextView textViewBlueDistance;
+
+    EditText editTextR;
+    EditText editTextG;
+    EditText editTextB;
 
     Button buttonHome;
 
@@ -72,6 +77,14 @@ public class ResultsActivity extends AppCompatActivity {
         textViewRedDistance = findViewById(R.id.textViewRedDistance);
         textViewBlueDistance = findViewById(R.id.textViewBlueDistance);
         textViewGreenDistance = findViewById(R.id.textViewGreenDistance);
+
+        editTextB = findViewById(R.id.editTextBlueInput2);
+        editTextR = findViewById(R.id.editTextRedInput2);
+        editTextG = findViewById(R.id.editTextGreenInput2);
+
+        editTextG.setText(guesses[1]);
+        editTextR.setText(guesses[0]);
+        editTextB.setText(guesses[2]);
 
         Log.i("TVRD", textViewRedDistance.toString());
 //        Log.i("TVGD", textViewBlueDistance.toString());
