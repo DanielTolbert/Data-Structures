@@ -44,9 +44,9 @@ public class Color implements Comparable {
 
     public double calcDistance(int guessR, int guessG, int guessB) {
         distance =  Math.pow(Math.pow((r)
-                - (guessR), 3) +
-                Math.pow((g) - (guessG), 3) +
-                Math.pow((b) - (guessB), 3),(1d/2d));
+                - (guessR), 2) +
+                Math.pow((g) - (guessG), 2) +
+                Math.pow((b) - (guessB), 2),(1d/2d));
         return distance;
     }
 

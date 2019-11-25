@@ -10,6 +10,7 @@
         android:id="@+id/buttonHomeFromStandings"
         android:layout_width="413dp"
         android:layout_height="66dp"
+        android:background="@drawable/button_background"
         android:text="@string/buttonLabelHome"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
