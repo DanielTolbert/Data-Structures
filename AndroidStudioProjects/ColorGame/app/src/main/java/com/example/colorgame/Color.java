@@ -2,11 +2,20 @@ package com.example.colorgame;
 
 import java.util.ArrayList;
 
-public class Color implements Comparable{
+public class Color implements Comparable {
 
     private int r, g, b;
     public static ArrayList<Color> standings = new ArrayList<>();
     private double distance;
+    private static double average = 0;
+
+    public static double getAverage() {
+        return average;
+    }
+
+    public static void addToAverage(double distance) {
+        average = ( average + distance ) / 2;
+    }
 
     public Color(int r, int g, int b) {
         this.r = r;
@@ -33,11 +42,12 @@ public class Color implements Comparable{
         return b;
     }
 
-    public void calcDistance(int guessR, int guessG, int guessB) {
+    public double calcDistance(int guessR, int guessG, int guessB) {
         distance =  Math.pow(Math.pow((r)
                 - (guessR), 3) +
                 Math.pow((g) - (guessG), 3) +
                 Math.pow((b) - (guessB), 3),(1d/2d));
+        return distance;
     }
 
     public  double getDistance() {

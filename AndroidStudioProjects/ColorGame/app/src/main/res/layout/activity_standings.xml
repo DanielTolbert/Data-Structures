@@ -6,7 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".StandingsActivity">
 
+    <Button
+        android:id="@+id/buttonHomeFromStandings"
+        android:layout_width="417dp"
+        android:layout_height="77dp"
+        android:text="@string/buttonLabelHome"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="409dp"
         android:layout_height="729dp"
         app:layout_constraintBottom_toBottomOf="parent"
