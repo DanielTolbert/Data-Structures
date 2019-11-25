@@ -10,4 +10,9 @@
     <string name="green">Green</string>
     <string name="blue">Blue</string>
     <string name="submit">Submit!</string>
+    <string name="buttonLabelHome">Home</string>
+    <string name="buttonLabelNextColor">Next Color</string>
+    <string name="worseThanAverage">Worse than your average</string>
+    <string name="betterThanAverage">Better than your average</string>
+    <string name="firstGuess">Great First Guess!</string>
 </resources>
