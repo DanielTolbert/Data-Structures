@@ -35,8 +35,8 @@ public class StandingsActivity extends AppCompatActivity {
         Collections.reverse(standingsColor);
         standingsColor.add(new Color(255, 255, 255));
         standingsColor.add(new Color(255, 255, 255));
-        standingsColor.add(new Color(255, 255, 255));
-        standingsColor.add(new Color(255, 255, 255));
+//        standingsColor.add(new Color(255, 255, 255));
+//        standingsColor.add(new Color(255, 255, 255));
         standingsColor.addAll(Color.getStandings());
     }
 
