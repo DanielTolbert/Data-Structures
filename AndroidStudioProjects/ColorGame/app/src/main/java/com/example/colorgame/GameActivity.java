@@ -68,9 +68,6 @@ public class GameActivity extends AppCompatActivity {
 
         makeEditTextListeners(editTextBlue, editTextGreen, editTextRed);
 
-//        editTextGreen.setBackgroundColor(Color.WHITE);
-//        editTextRed.setBackgroundColor(Color.WHITE);
-//        editTextBlue.setBackgroundColor(Color.WHITE);
     }
 
     private void makeEditTextListeners(final EditText...texts) {

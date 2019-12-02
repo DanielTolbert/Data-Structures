@@ -109,9 +109,9 @@ public class ResultsActivity extends AppCompatActivity {
         double distance = getDistance();
 
         textViewResults.setText("You were \n" + decimalFormat.format(getDistance()) + " off.");
-        textViewRedDistance.setText(Double.valueOf(answers[0])- Double.valueOf(guesses[0]) + "");
-        textViewGreenDistance.setText(Double.valueOf(answers[1]) - Double.valueOf(guesses[1]) + "");
-        textViewBlueDistance.setText(Double.valueOf(answers[2]) - Double.valueOf(guesses[2] )+ "");
+        textViewRedDistance.setText(Double.valueOf(answers[0])+ "");
+        textViewGreenDistance.setText(Double.valueOf(answers[1]) + "");
+        textViewBlueDistance.setText(Double.valueOf(answers[2]) + "");
 
         if (Color.standings.size() == 0) {
             textViewThanAverage.setText(R.string.firstGuess);

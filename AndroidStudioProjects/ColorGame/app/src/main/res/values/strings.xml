@@ -16,4 +16,5 @@
     <string name="betterThanAverage">Better than your average</string>
     <string name="firstGuess">Great First Guess!</string>
     <string name="warning">Enter All Values!</string>
+    <string name="PickColors">Choose RGB Values!</string>
 </resources>
