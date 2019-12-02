@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,6 +55,7 @@ public class StandingsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     private void makeTextViews() {
@@ -75,6 +78,9 @@ public class StandingsActivity extends AppCompatActivity {
             layout.addView(textView);
             index ++;
         }
+
+        TextView average = findViewById(R.id.textViewAverage);
+        average.setText("Average: " + Color.getAverage());
 
 
 

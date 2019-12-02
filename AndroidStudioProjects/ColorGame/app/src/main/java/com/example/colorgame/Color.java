@@ -1,5 +1,6 @@
 package com.example.colorgame;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,7 +12,8 @@ public class Color implements Comparable {
     private static double average = 0;
 
     public static double getAverage() {
-        return average;
+        DecimalFormat df = new DecimalFormat("0.00");
+        return Double.valueOf(df.format(average));
     }
 
     public static void addToAverage(double distance) {
