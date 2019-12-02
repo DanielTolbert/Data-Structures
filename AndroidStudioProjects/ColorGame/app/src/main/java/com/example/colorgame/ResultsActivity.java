@@ -73,6 +73,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     private void createStanding() {
         Color.standings.add(color);
+        Color.sortStandings();
     }
     private double getDistance() {
         return color.calcDistance((int)Double.parseDouble(guesses[0]), (int)Double.parseDouble(guesses[1]), (int)Double.parseDouble(guesses[2]));
@@ -91,9 +92,13 @@ public class ResultsActivity extends AppCompatActivity {
 
         imageViewFace = findViewById(R.id.imageViewFace);
 
-        editTextG.setText(Math.abs(Double.parseDouble(guesses[1])) + "");
+        removeNegatives();
+
         editTextR.setText(Math.abs(Double.parseDouble(guesses[0])) + "");
+        editTextG.setText(Math.abs(Double.parseDouble(guesses[1])) + "");
         editTextB.setText(Math.abs(Double.parseDouble(guesses[2])) + "");
+
+
 
         Log.i("TVRD", textViewRedDistance.toString());
 //        Log.i("TVGD", textViewBlueDistance.toString());
@@ -104,9 +109,9 @@ public class ResultsActivity extends AppCompatActivity {
         double distance = getDistance();
 
         textViewResults.setText("You were \n" + decimalFormat.format(getDistance()) + " off.");
-        textViewRedDistance.setText(Double.valueOf(answers[0])- Double.valueOf(guesses[0]) + "");
-        textViewGreenDistance.setText(Double.valueOf(answers[1]) - Double.valueOf(guesses[1]) + "");
-        textViewBlueDistance.setText(Double.valueOf(answers[2]) - Double.valueOf(guesses[2] )+ "");
+        textViewRedDistance.setText(Double.valueOf(answers[0])+ "");
+        textViewGreenDistance.setText(Double.valueOf(answers[1]) + "");
+        textViewBlueDistance.setText(Double.valueOf(answers[2]) + "");
 
         if (Color.standings.size() == 0) {
             textViewThanAverage.setText(R.string.firstGuess);
@@ -143,5 +148,14 @@ public class ResultsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void removeNegatives() {
+        for (int i = 0; i < 3; i++) {
+            if (guesses[i].contains("-")) {
+                guesses[i] = guesses[i].substring(1);
+            }
+        }
+    }
+
 
 }

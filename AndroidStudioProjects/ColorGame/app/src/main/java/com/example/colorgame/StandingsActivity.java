@@ -19,8 +19,8 @@ public class StandingsActivity extends AppCompatActivity {
 
     ArrayList<Color> standingsColor = new ArrayList<>();
 
-    Button buttonHome;
 
+    Button buttonHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +30,15 @@ public class StandingsActivity extends AppCompatActivity {
         createMiscellaneousViews();
     }
 
+
     private void receiveData() {
         Collections.sort(standingsColor);
         Collections.reverse(standingsColor);
         standingsColor.add(new Color(255, 255, 255));
         standingsColor.add(new Color(255, 255, 255));
+
+
+
 //        standingsColor.add(new Color(255, 255, 255));
 //        standingsColor.add(new Color(255, 255, 255));
         standingsColor.addAll(Color.getStandings());

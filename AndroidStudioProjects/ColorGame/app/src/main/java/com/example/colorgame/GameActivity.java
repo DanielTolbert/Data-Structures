@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -67,9 +68,6 @@ public class GameActivity extends AppCompatActivity {
 
         makeEditTextListeners(editTextBlue, editTextGreen, editTextRed);
 
-        editTextGreen.setBackgroundColor(Color.WHITE);
-        editTextRed.setBackgroundColor(Color.WHITE);
-        editTextBlue.setBackgroundColor(Color.WHITE);
     }
 
     private void makeEditTextListeners(final EditText...texts) {
@@ -119,24 +117,29 @@ public class GameActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guesses = makeGuessArray();
-                Intent intent = new Intent(getBaseContext(), ResultsActivity.class);
-                String[] guess = new String[3];
-                String[] ans = new String[3];
+                if ((editTextBlue.getText().toString().isEmpty() ||
+                        editTextGreen.getText().toString().isEmpty() ||
+                            editTextRed.getText().toString().isEmpty())) {
+                    Toast.makeText(getBaseContext(), R.string.warning, Toast.LENGTH_SHORT);
+                } else {
+                    guesses = makeGuessArray();
+                    Intent intent = new Intent(getBaseContext(), ResultsActivity.class);
+                    String[] guess = new String[3];
+                    String[] ans = new String[3];
 
-                for(int i = 0; i < 3; i ++) {
-                    guess[i] = guesses.get(i);
-                    ans[i] = answers.get(i);
+                    for(int i = 0; i < 3; i ++) {
+                        guess[i] = guesses.get(i);
+                        ans[i] = answers.get(i);
+                    }
+
+                    String a = ans[0] + " " + ans[1] + " " + ans[2];
+                    String g = guess[0] + " " + guess[1] + " " + guess[2];
+
+
+                    intent.putExtra(GameActivity.GUESSES_KEY, g);
+                    intent.putExtra(GameActivity.ANSWERS_KEY, a);
+                    startActivity(intent);
                 }
-
-                String a = ans[0] + " " + ans[1] + " " + ans[2];
-                String g = guess[0] + " " + guess[1] + " " + guess[2];
-
-
-
-                intent.putExtra(GameActivity.GUESSES_KEY, g);
-                intent.putExtra(GameActivity.ANSWERS_KEY, a);
-                startActivity(intent);
             }
         });
     }

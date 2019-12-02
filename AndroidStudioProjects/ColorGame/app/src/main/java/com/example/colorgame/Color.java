@@ -1,6 +1,7 @@
 package com.example.colorgame;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Color implements Comparable {
 
@@ -40,6 +41,10 @@ public class Color implements Comparable {
 
     public int getB() {
         return b;
+    }
+
+    public static void sortStandings() {
+        Collections.sort(standings);
     }
 
     public double calcDistance(int guessR, int guessG, int guessB) {
