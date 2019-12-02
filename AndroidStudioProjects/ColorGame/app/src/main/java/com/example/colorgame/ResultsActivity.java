@@ -73,6 +73,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     private void createStanding() {
         Color.standings.add(color);
+        Color.sortStandings();
     }
     private double getDistance() {
         return color.calcDistance((int)Double.parseDouble(guesses[0]), (int)Double.parseDouble(guesses[1]), (int)Double.parseDouble(guesses[2]));
@@ -91,9 +92,13 @@ public class ResultsActivity extends AppCompatActivity {
 
         imageViewFace = findViewById(R.id.imageViewFace);
 
-        editTextG.setText(Math.abs(Double.parseDouble(guesses[1])) + "");
+        removeNegatives();
+
         editTextR.setText(Math.abs(Double.parseDouble(guesses[0])) + "");
+        editTextG.setText(Math.abs(Double.parseDouble(guesses[1])) + "");
         editTextB.setText(Math.abs(Double.parseDouble(guesses[2])) + "");
+
+
 
         Log.i("TVRD", textViewRedDistance.toString());
 //        Log.i("TVGD", textViewBlueDistance.toString());
@@ -143,5 +148,14 @@ public class ResultsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void removeNegatives() {
+        for (int i = 0; i < 3; i++) {
+            if (guesses[i].contains("-")) {
+                guesses[i] = guesses[i].substring(1);
+            }
+        }
+    }
+
 
 }
