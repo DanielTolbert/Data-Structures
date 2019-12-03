@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Color Game</string>
+    <string name="homeTitle">Color Estimating Game</string>
+    <string name="buttonGameLabel">Begin!</string>
+    <string name="buttonResultsLabel">Current Standings</string>
+    <string name="redInput">Red Value</string>
+    <string name="greenInput">Green Value</string>
+    <string name="blueInput">Blue Value</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="submit">Submit!</string>
+    <string name="buttonLabelHome">Home</string>
+    <string name="buttonLabelNextColor">Next Color</string>
+    <string name="worseThanAverage">Worse than your average</string>
+    <string name="betterThanAverage">Better than your average</string>
+    <string name="firstGuess">Great First Guess!</string>
+    <string name="warning">Enter All Values!</string>
+    <string name="PickColors">Choose RGB Values!</string>
+</resources>

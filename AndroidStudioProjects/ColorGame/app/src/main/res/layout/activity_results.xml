@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ResultsActivity">
+
+    <TextView
+        android:id="@+id/textViewBlueLabel2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="61dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
+        android:text="@string/blue"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextBlueInput2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGreenLabel2" />
+
+    <TextView
+        android:id="@+id/textViewRedLabel2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
+        android:text="@string/red"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextRedInput2"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewGreenLabel2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
+        android:text="@string/green"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextGreenInput2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRedLabel2" />
+
+    <TextView
+        android:id="@+id/textViewResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="155dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.527" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="79dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintStart_toEndOf="@+id/editTextRedInput2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow" />
+
+    <EditText
+        android:id="@+id/editTextRedInput2"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginRight="163dp"
+        android:background="@drawable/edittext_style"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="@string/redInput"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextGreenInput2"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginRight="164dp"
+        android:background="@drawable/edittext_style"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="@string/greenInput"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRedInput2" />
+
+    <EditText
+        android:id="@+id/editTextBlueInput2"
+        android:layout_width="120dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginRight="163dp"
+        android:background="@drawable/edittext_style"
+        android:ems="10"
+        android:enabled="false"
+        android:gravity="center"
+        android:hint="@string/blueInput"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextGreenInput2" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="79dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toEndOf="@+id/editTextBlueInput2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="79dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginRight="58dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/arrow" />
+
+    <TextView
+        android:id="@+id/textViewRedDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:width="55dp"
+        android:height="30dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewGreenDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:width="55dp"
+        android:height="30dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRedDistance" />
+
+    <TextView
+        android:id="@+id/textViewBlueDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:width="55dp"
+        android:height="30dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGreenDistance" />
+
+    <Button
+        android:id="@+id/buttonHomeFromResults"
+        android:layout_width="122dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginBottom="69dp"
+        android:background="@drawable/button_background"
+        android:text="@string/buttonLabelHome"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNextColor"
+        android:layout_width="122dp"
+        android:layout_height="74dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="69dp"
+        android:background="@drawable/button_background"
+        android:text="@string/buttonLabelNextColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewThanAverage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="140dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewFace"
+        android:layout_width="80dp"
+        android:layout_height="124dp"
+        android:layout_marginBottom="43dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewThanAverage"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewThanAverage"
+        app:srcCompat="@drawable/happyface" />
+</androidx.constraintlayout.widget.ConstraintLayout>
