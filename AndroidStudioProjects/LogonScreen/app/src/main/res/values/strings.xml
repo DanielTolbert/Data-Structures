@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Logon Screen</string>
+    <string name="welcome">Welcome</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+</resources>
