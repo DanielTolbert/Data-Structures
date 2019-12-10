@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ListviewQuiz</string>
+    <string name="name">Enter Name</string>
+    <string name="add_player">Add Player</string>
+    <string name="players">Players</string>
+    <string name="full">Reached Max Players!</string>
+</resources>
