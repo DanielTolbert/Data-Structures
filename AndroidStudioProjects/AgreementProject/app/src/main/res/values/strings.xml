@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Agreement Project</string>
+    <string name="buttonLogin">Login</string>
+    <string name="buttonTerms">Terms</string>
+    <string name="successOne">Success! Your code of </string>
+    <string name="successTwo"> was correct!</string>
+    <string name="failOne">Fail! Your code of </string>
+    <string name="failTwo"> was incorrect</string>
+    <string name="enterCode">Agreement Code: </string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
+</resources>
