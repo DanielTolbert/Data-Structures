@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getCode() {
-        return code;
+        return  " " + code + " ";
     }
 
     public void setCode(String code) {
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void failureToast() {
-        Toast.makeText(getBaseContext(), getResources().getString(R.string.failOne) + " " +
-                getCode() + " " +
+        Toast.makeText(getBaseContext(), getResources().getString(R.string.failOne) +
+                getCode() +
                 getResources().getString(R.string.failTwo), Toast.LENGTH_LONG).show();
     }
 }
