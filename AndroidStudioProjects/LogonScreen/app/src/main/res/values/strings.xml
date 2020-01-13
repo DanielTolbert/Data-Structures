@@ -4,4 +4,6 @@
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
     <string name="makeaccount">Make an Account</string>
+    <string name="username">Username</string>
+    <string name="already">Already have an account?</string>
 </resources>

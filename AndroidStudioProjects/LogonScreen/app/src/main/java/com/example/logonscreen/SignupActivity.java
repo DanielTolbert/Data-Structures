@@ -2,6 +2,7 @@ package com.example.logonscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private EditText editTextRe_password;
     private Button buttonCreateAccount;
+    private Button buttonLoginPage;
 
     public SignupActivity() {
 
@@ -37,6 +39,15 @@ public class SignupActivity extends AppCompatActivity {
                 if (validatePassword()) {
                     createAccount(editTextUsername.getText().toString(), editTextPassword.getText().toString());
                 }
+            }
+        });
+
+        buttonLoginPage = findViewById(R.id.buttonLoginPage);
+        buttonLoginPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
