@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -33,11 +38,18 @@ public class SignupActivity extends AppCompatActivity {
         editTextRe_password = findViewById(R.id.editTextReenterPassword);
 
         buttonCreateAccount = findViewById(R.id.buttonMakeAccount);
+        buttonCreateAccount.setEnabled(shouldEnableMakeAccount());
         buttonCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (validatePassword()) {
-                    createAccount(editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                if (passwordsMatch()) {
+                    if (passwordsMeetSpecifications(editTextPassword.getText().toString())) {
+                        createAccount(editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                    } else {
+                        invalidPassword();
+                    }
+                } else {
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.passwordsNoMatch), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -51,11 +63,77 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        editTextUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buttonCreateAccount.setEnabled(shouldEnableMakeAccount());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextRe_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buttonCreateAccount.setEnabled(shouldEnableMakeAccount());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        editTextPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buttonCreateAccount.setEnabled(shouldEnableMakeAccount());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
-    private boolean validatePassword() {
-        boolean matchingPasswords = editTextPassword.getText().toString().equals( editTextUsername.getText().toString() );
-        return matchingPasswords;
+    private void invalidPassword() {
+
+    }
+
+    private boolean shouldEnableMakeAccount() {
+        return passwordsMatch() && passwordsMeetSpecifications(editTextPassword.getText().toString())
+                && !editTextUsername.getText().toString().isEmpty();
+    }
+
+    private boolean passwordsMatch() {
+        if (editTextPassword.getText().toString().equals( editTextRe_password.getText().toString() )) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean passwordsMeetSpecifications( String password ) {
+        return password.matches("(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*\\d+)(?=.*[^!@#$%*]+).{8,16}");
     }
 
     private void createAccount(String user, String pass) {
