@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "262523564400",
+    "firebase_url": "https://logon-project-5d1df.firebaseio.com",
+    "project_id": "logon-project-5d1df",
+    "storage_bucket": "logon-project-5d1df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262523564400:android:f828c4a2ee100edbfb1fb5",
+        "android_client_info": {
+          "package_name": "com.example.logonscreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262523564400-94l279ugihhl9f07ljtlrtuqo3sliaur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSJPN-DvMzK4FGiA50_ItKZIF21NUx0v4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262523564400-94l279ugihhl9f07ljtlrtuqo3sliaur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

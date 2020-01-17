@@ -1,5 +1,6 @@
 package com.example.logonscreen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
@@ -20,6 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText editTextRe_password;
     private Button buttonCreateAccount;
     private Button buttonLoginPage;
+    private FirebaseAuth firebaseAuth;
 
     public SignupActivity() {
 
@@ -30,6 +37,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         createViews();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     private void createViews() {
@@ -117,12 +125,11 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void invalidPassword() {
-
+        Toast.makeText(this, getResources().getString(R.string.passwordInvalid), Toast.LENGTH_LONG).show();
     }
 
     private boolean shouldEnableMakeAccount() {
-        return passwordsMatch() && passwordsMeetSpecifications(editTextPassword.getText().toString())
-                && !editTextUsername.getText().toString().isEmpty();
+        return !editTextUsername.getText().toString().isEmpty() && !editTextPassword.getText().toString().isEmpty();
     }
 
     private boolean passwordsMatch() {
@@ -137,7 +144,16 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void createAccount(String user, String pass) {
-
+        firebaseAuth.createUserWithEmailAndPassword( user, pass ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isComplete()) {
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.accountCreated), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.accountFailed), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
 

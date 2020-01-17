@@ -1,5 +1,6 @@
 package com.example.logonscreen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,14 +8,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-
     private Button signup;
     private Button login;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -35,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if ( validatePassword() ){
-                    validateAccountExistence();
+                    validateAccountExistence(username.getText().toString(), password.getText().toString());
                 }
             }
         });
@@ -49,11 +58,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        return false;
+        return true;
     }
 
-    private void validateAccountExistence() {
-
+    private void validateAccountExistence(String userame, String password) {
+        firebaseAuth.signInWithEmailAndPassword(userame, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isComplete()) {
+                    Toast.makeText(getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Bro who are you", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void createAccountActivity() {

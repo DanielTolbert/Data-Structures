@@ -7,4 +7,7 @@
     <string name="username">Username</string>
     <string name="already">Already have an account?</string>
     <string name="passwordsNoMatch">Passwords do not match!</string>
+    <string name="passwordInvalid">Password does not meet specifications!</string>
+    <string name="accountCreated">Account successfully created!</string>
+    <string name="accountFailed">Error while creating account</string>
 </resources>
