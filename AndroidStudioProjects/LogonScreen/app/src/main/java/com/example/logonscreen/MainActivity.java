@@ -25,11 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private Button login;
     private FirebaseAuth firebaseAuth;
 
+    public String USER_ID_KEY = "USER_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firebaseAuth = FirebaseAuth.getInstance();
         createViews();
     }
 
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        return true;
+        return !username.getText().toString().isEmpty() && !password.getText().toString().isEmpty();
     }
 
     private void validateAccountExistence(String userame, String password) {
@@ -67,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isComplete()) {
                     Toast.makeText(getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getBaseContext(), notepadActivity.class);
+                    intent.putExtra( USER_ID_KEY, firebaseAuth.getCurrentUser().getUid() );
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getBaseContext(), "Bro who are you", Toast.LENGTH_LONG).show();
                 }
