@@ -15,8 +15,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.regex.Pattern;
-
 public class MainActivity extends AppCompatActivity {
 
     private EditText username;
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Button login;
     private FirebaseAuth firebaseAuth;
 
-    public String USER_ID_KEY = "USER_ID";
+    public static String USER_ID_KEY = "USER_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isComplete()) {
                     Toast.makeText(getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getBaseContext(), notepadActivity.class);
+                    Intent intent = new Intent(getBaseContext(), NotepadActivity.class);
                     intent.putExtra( USER_ID_KEY, firebaseAuth.getCurrentUser().getUid() );
                     startActivity(intent);
                 } else {
