@@ -8,14 +8,23 @@
 
     <EditText
         android:id="@+id/editTextNotepad"
-        android:layout_width="437dp"
-        android:layout_height="731dp"
+        android:layout_width="426dp"
+        android:layout_height="606dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonSaveWork"
+        android:layout_width="171dp"
+        android:layout_height="71dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNotepad" />
 </androidx.constraintlayout.widget.ConstraintLayout>

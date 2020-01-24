@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(userame, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isComplete()) {
+                if (task.isSuccessful()) {
                     Toast.makeText(getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getBaseContext(), NotepadActivity.class);
                     intent.putExtra( USER_ID_KEY, firebaseAuth.getCurrentUser().getUid() );
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show();
     }
 
     private void createAccountActivity() {
