@@ -4,11 +4,18 @@
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
     <string name="makeaccount">Make an Account</string>
-    <string name="username">Username</string>
+    <string name="username">Email</string>
     <string name="already">Already have an account?</string>
     <string name="passwordsNoMatch">Passwords do not match!</string>
     <string name="passwordInvalid">Password does not meet specifications!</string>
     <string name="accountCreated">Account successfully created!</string>
     <string name="accountFailed">Error while creating account</string>
     <string name="save">Save Work</string>
+    <string name="passwordSpefs">Click to see password specifications</string>
+    <string name="realPasswordSpefs">Password must be:
+                                        8-16 characters in length
+                                        contain a special character
+                                        contain a number
+                                        contain an uppercase and lowercase letter</string>
+    <string name="showpassword">Show</string>
 </resources>

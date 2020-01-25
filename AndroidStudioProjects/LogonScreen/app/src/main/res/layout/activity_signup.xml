@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".SignupActivity">
 
     <TextView
@@ -11,6 +12,7 @@
         android:layout_width="277dp"
         android:layout_height="58dp"
         android:layout_marginTop="54dp"
+        android:background="@drawable/textview_background"
         android:gravity="center"
         android:text="@string/makeaccount"
         android:textSize="30sp"
@@ -21,48 +23,71 @@
 
     <EditText
         android:id="@+id/editTextUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_width="212dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edittext_style"
         android:ems="10"
+        android:gravity="center"
         android:hint="@string/username"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.874"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMakeAccount" />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+        android:layout_width="214dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edittext_style"
         android:ems="10"
+        android:gravity="center"
         android:hint="Enter Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.873"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
 
+    <TextView
+        android:id="@+id/textViewPasswordSpecifications"
+        android:layout_width="114dp"
+        android:layout_height="252dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="23dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
+        android:text="@string/realPasswordSpefs"
+        app:layout_constraintBottom_toTopOf="@+id/buttonMakeAccount"
+        app:layout_constraintEnd_toStartOf="@+id/editTextPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMakeAccount" />
+
     <EditText
         android:id="@+id/editTextReenterPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="212dp"
+        android:layout_height="51dp"
         android:layout_marginTop="44dp"
+        android:background="@drawable/edittext_style"
         android:ems="10"
+        android:gravity="center"
         android:hint="Re-enter Password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.874"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <Button
         android:id="@+id/buttonMakeAccount"
-        android:layout_width="142dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="9dp"
+        android:layout_width="124dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_background"
         android:text="@string/signup"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,25 +95,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextReenterPassword" />
 
+    <Button
+        android:id="@+id/buttonLoginPage"
+        android:layout_width="116dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:text="@string/login"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlready" />
+
     <TextView
         android:id="@+id/textViewAlready"
-        android:layout_width="174dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="192dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/textview_background"
+        android:gravity="center"
         android:text="@string/already"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLoginPage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonMakeAccount" />
 
-    <Button
-        android:id="@+id/buttonLoginPage"
-        android:layout_width="141dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAlready" />
 </androidx.constraintlayout.widget.ConstraintLayout>

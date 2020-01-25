@@ -10,6 +10,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,9 +26,14 @@ public class SignupActivity extends AppCompatActivity {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private EditText editTextRe_password;
+    private TextView textViewPasswordSpecifications;
     private Button buttonCreateAccount;
     private Button buttonLoginPage;
+    private Button buttonShowPasswordOne;
+    private Button buttonShowPasswordTwo;
     private FirebaseAuth firebaseAuth;
+    private Switch switchShowOne;
+    private Switch switchShowTwo;
 
     public SignupActivity() {
 
@@ -44,6 +51,8 @@ public class SignupActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextRe_password = findViewById(R.id.editTextReenterPassword);
+        textViewPasswordSpecifications = findViewById(R.id.textViewPasswordSpecifications);
+
 
         buttonCreateAccount = findViewById(R.id.buttonMakeAccount);
         buttonCreateAccount.setEnabled(shouldEnableMakeAccount());
@@ -154,6 +163,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+        Toast.makeText(this, "Loading", Toast.LENGTH_SHORT).show();
     }
 
 

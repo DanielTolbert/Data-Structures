@@ -50,6 +50,13 @@ public class NotepadActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SHARED_PREFERECES_KEY, MODE_PRIVATE);
         recieveData();
         createViews();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        writeToFile();
+        finish();
     }
 
     private void recieveData() {
@@ -59,16 +66,6 @@ public class NotepadActivity extends AppCompatActivity {
         currentUser = new User("", userKey);
         loadData(sharedPreferences, userKey);
 
-//        if (!userMap.isEmpty()) {
-//            Arrays.asList(users).forEach(e -> userMap.put(e.getId(), e.getText()));
-//        }
-//
-//        currentUser = new User("", userKey);
-//        if (!userMap.containsKey(userKey)) {
-//            userMap.put(currentUser.getText(), currentUser.getId());
-//        } else {
-//            currentUser.setText(userMap.get(currentUser.getId()));
-//        }
     }
 
     public void createViews() {
@@ -108,6 +105,7 @@ public class NotepadActivity extends AppCompatActivity {
         userMap.put(currentUser.getId(), currentUser.getText());
         Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
     }
+
 
     private String loadData(SharedPreferences sharedPreferences, String userID) {
         String string =  sharedPreferences.getString(userID, "");

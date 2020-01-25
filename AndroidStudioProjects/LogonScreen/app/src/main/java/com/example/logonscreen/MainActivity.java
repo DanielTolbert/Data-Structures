@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 if ( validatePassword() ){
                     validateAccountExistence(username.getText().toString(), password.getText().toString());
                 }
+                Toast.makeText(getBaseContext(), "The first database query can take a while", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra( USER_ID_KEY, firebaseAuth.getCurrentUser().getUid() );
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getBaseContext(), "Bro who are you", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Account Unrecognized", Toast.LENGTH_LONG).show();
                 }
             }
         });
